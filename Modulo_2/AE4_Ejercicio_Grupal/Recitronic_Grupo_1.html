@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+
+    <title>Recitronic - Grupo 1</title>
+  </head>
+  <body style="background-color: rgb(248, 248, 248);">
+    <nav class="navbar navbar-expand-sm bg-success navbar-dark">
+      <a class="navbar-brand" href="#" style="padding: 0 0 0 70px">
+        <strong>RECITRONIC</strong>
+      </a>
+      <div class="container-fluid justify-content-end" style="padding: 0 100px">
+        <!-- Links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#servicios">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#precios">Precios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#reserva">Reserva</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contacto">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container text-center p-4">
+      <h1 class="fw-bold p-1">Recicla tu tecnología con RECITRONIC</h1>
+      <p class="p-1 m-0 mb-3">
+        Retiro y reciclaje responsable de dispositivos electronicos. Rápido
+        fácil y seguro
+      </p>
+      <button style="padding-top: 5px" type="button" class="btn btn-success">
+        <a href="#reserva" class="text-white text-decoration-none"
+          >Agendar retiro</a>
+      </button>
+    </div>
+
+<!--Segunda Sección  -->
+
+   <div class="container my-5">
+        <h2 class="text-center mb-4">¿Que reciclamos?</h2>
+        <div class="row">
+            <div class="col-md-4 border-white">
+                <div class="card mb-4 border-0">
+                    <img src="computadoras.png " class="card-img-top" alt="computadoras">
+                    <div class="card-body">
+                      <h5 class="card-title text-center p-">Computadoras</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 border-0">
+                    <img src="celulares.png" class="card-img-top" alt="celulares">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Celulares y Tablets</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 border-0">
+                    <img src="electrodomesticos.png" class="card-img-top" alt="electrodomesticos">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Pequeños electrodomésticos</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Tercera Sección -->
+    <div id="precios" class="container mt-5">
+      <h2 class="text-center mt-5 pb-2">Precios por volumen</h2>
+      <div class="alert alert-info text-center mx-auto w-75">
+      Se cobra según el volumen estimado de los dispositivos reciclados.
+      </div>
+      <table class="table table-striped text-center mx-auto w-75 border">
+        <thead class="table-success">
+          <tr>
+              <th>Volumen</th>
+              <th>Precio</th>
+              <th>Tiempo estimado de retiro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>0 - 0.5 m³</td>
+              <td>$10.000</td>
+              <td>24 horas</td>
+          </tr>
+          <tr>
+              <td>0.5 - 1 m³</td>
+              <td>$18.000</td>
+              <td>48 horas</td>
+          </tr>
+          <tr>
+              <td>1 - 2 m³</td>
+              <td>$30.000</td>
+              <td>72 horas</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+
+  <!-- Cuarta Sección -->
+    <div class="container pt-2 mx-auto" style="max-width: 100%; height: auto;" id="reserva">
+        <div class="row h-auto" style="background-color: white; text-align: center; height: 350px; width: 100% ;">
+           <h2 class="text-center mt-6 pb-2">Reserva tu retiro</h2>    
+          <form class="w-50 mx-auto p-4">
+            <div class="mb-3 text-start p-4 ">
+              <label class="form-label pt-1">Nombre Completo</label>
+              <input type="text" class="form-control">
+              <label class="form-label pt-1">Dirección de retiro</label>
+              <input type="email" class="form-control">
+              <label class="form-label pt-1">Fecha deseada</label>
+              <input type="date" class="form-control">
+              <label class="form-label pt-1">Volumen estimado (m³)</label>
+              <input type="email" class="form-control">
+              <label class="form-label pt-1">Correo electrónico</label>
+              <input type="email" class="form-control">
+              <button type="submit" class="mt-3 btn btn-success w-100 mx-auto">Enviar solicitud</button>
+            </div>
+          </form>
+        </div>
+    </div>
+    <div class="container p-4 mt-3 text-center" id="contacto">
+      <h1 class="p-3">¿Dudas o consultas?</h1>
+      <h6>Contáctanos a través de nuestro correo o redes sociales.</h6>
+      <h6>contacto@recitronic.cl</h6>
+    </div>
+  </body>
+</html>

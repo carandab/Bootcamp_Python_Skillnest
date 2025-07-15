@@ -1,0 +1,23 @@
+#gallery img.thumbnail {
+  width: 100% !important;
+  height: 180px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+#gallery .col-6 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.modal-body {
+  padding: 2rem 1rem;
+}
+
+
+

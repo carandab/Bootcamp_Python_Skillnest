@@ -1,0 +1,1 @@
+Dentro del archivo comprimido se encuentran el programa en python (.py) y el diagrama de flujo en dos formatos (svg y png)

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Semana 3</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets\css\style.css">
+    </head>
+    <body>
+        <header id="navbar">
+            <a href="#" id="profile">Perfil</a>
+            <nav>
+                    <ul class="nav-links">
+                        <li><a href="">Inicio</a></li>
+                        <li><a href="">Mi Perfil</a></li>
+                        <li><a href="">Encontrar</a></li>
+                        <li><a href="">Conexiones</a></li>
+                    </ul>
+            </nav>
+            <button id="logout">Cerrar Sesión</button>
+        </header>
+        <main>
+            <div class="container">
+                    <div class="column_1">
+                        <div class="card" id="profile_card">
+                            <header  class="card" id="card1"></header>
+                            <img class="profile_picture" src="assets/images/foto-mujer.jpg" alt="Foto de Linn Olsen">
+                            <div  class="card_text" id="card2">
+                                <h2 id="name">Linn Olsen</h2>
+                                <li id="location">Bergsen, Noruega</li>
+                                <li id="occupation">Diseñadora de UX/UI | Desarrolladora Frontend | Amante de la naturaleza</li>
+                                <p id="bio">Apasionada por crear experiencias digitales hermosas y funcionales.
+                               Cuando no está codificando, disfruta explorando los fiordos noruegos y capturando la belleza de la naturaleza en fotografías.</p>
+                            </div>
+                            <a id="edit_profile" href="">⚙︎ Editar Perfil</a>
+                        </div>
+                        <div class="card" id="card3">
+                            <h2 id="education">Education</h2>
+                            <li id="education">Coding Dojo - Bootcamp de Desarrollo Full Stack</li>
+                            <li id="education">Dic 2019 - Mar 2020</li>
+                            <li id="education">Triple cinturón negro en Python, MERN y C#</p>
+                        </div>
+                    </div>
+                    <div class="column_2">
+                        <div class="card" id="card4">
+                            <h2>Solicitudes de Conexión (<span id="contador-solicitudes">0</span>)</h2>
+                            <ul class="solicitudes-list">
+                                <li>
+                                    <img class="solicitud-profile" src="assets/images/perfil-hombre.jpg" alt="Kai Schröder">
+                                    <span class="solicitud-name"><a id="solicitud_name" href="#">Kai Schröder</a></span>
+                                    <button class="accept-btn">✔</button>
+                                    <button class="decline-btn">✖</button>
+                                </li>
+                                <li>
+                                    <img class="solicitud-profile" src="assets/images/perfil-mujer.jpg" alt="Amira El-Masry">
+                                    <span class="solicitud-name"><a id="solicitud_name" href="#">Amira El-Masry</a></span>
+                                    <button class="accept-btn">✔</button>
+                                    <button class="decline-btn">✖</button>
+                                </li>
+                                </ul>
+                        </div>
+                        <div class="card" id="card5">
+                            <h2>Tus Conexiones (<span id="contador-conexiones">0</span>)</h2>
+                            <ul class="connections-list">
+                                <li>
+                                    <img class="connection-profile" src="assets/images/perfil-hombre.jpg" alt="Kai Schröder">
+                                    <span class="connection-name"><a id="connection_name" href="#">Adrien Desplatz</a></span>
+                                </li>
+                                <li>
+                                   <img class="connection-profile" src="assets/images/perfil-hombre.jpg" alt="Kai Schröder">
+                                    <span class="connection-name"><a id="connection_name" href="#">Aarav Patel</a></span>
+                                </li>
+                                <li>
+                                    <img class="connection-profile" src="assets/images/perfil-mujer.jpg" alt="Lina Kovacevic">
+                                    <span class="connection-name"><a id="connection_name" href="#">Lina Kovacevic</a></span>
+                                </li>
+                                <li>
+                                    <img class="connection-profile" src="assets/images/perfil-hombre.jpg" alt="Mateo Hernández">
+                                    <span class="connection-name"><a id="connection_name" href="#">Mateo Hernández</a></span>
+                                </li>
+                                <li>
+                                    <img class="connection-profile" src="assets/images/perfil-mujer.jpg" alt="Amira El-Masry">
+                                    <span class="connection-name"><a id="connection_name" href="#">Yuna Kim</a></span>
+                                </li>
+                                <li>
+                                   <img class="connection-profile" src="assets/images/perfil-hombre.jpg" alt="Kai Schröder">
+                                    <span class="connection-name"><a id="connection_name" href="#">Liam O'Brien</a></span>
+                                </li>
+                            </ul>    
+                        </div>
+                    </div>
+
+                </div>
+               
+            </div>
+        </main>
+        <script src="script.js"></script>
+    </body>
+    
+</html>

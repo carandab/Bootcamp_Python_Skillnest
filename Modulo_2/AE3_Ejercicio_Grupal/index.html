@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ECOEXPRESS - Reciclaje a Domicilio</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+
+        <link rel="stylesheet" href="style.css" />
+
+  
+    </head>
+    <body style="font-family: 'Roboto', sans-serif;">
+        <header>
+            <h1>Bienvenido a ECOEXPRESS</h1>
+        </header>
+
+        <main>
+            <section id="materiales">
+            <h2>Materiales Aceptados</h2>
+                <div class="material-card">
+                    <ul>
+                        <li>Cartón: $10 por kg</li>
+                        <li>Vidrio: $8 por kg</li>
+                        <li>Plástico: $12 por kg</li>
+                        <li>Electrónicos: $20 por unidad</li>
+                    </ul>
+                </div>
+ 
+            </section>
+
+	        <h2>Agendar Retiro</h2>
+    
+            <section id="agendar">
+                <form id="formulario-retiro">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+
+                    <label for="direccion">Dirección</label>
+                    <input type="text" id="direccion" name="direccion" placeholder="Tu dirección" required />
+
+                    <label for="material">Material</label> 
+                    <select id="material" name="material">
+                        <option value="carton">Cartón</option>
+                        <option value="vidrio">Vidrio</option>
+                        <option value="plastico">Plástico</option>
+                        <option value="electronicos">Electrónicos</option>
+                    </select>
+
+                    <button type="submit" class="boton">Agendar</button>
+                </form>
+            </section>
+            <br>
+            
+        </main>
+
+        <footer>
+        <p>© 2025 ECOEXPRESS. Todos los derechos reservados.</p>
+        </footer>
+    </body>
+</html>

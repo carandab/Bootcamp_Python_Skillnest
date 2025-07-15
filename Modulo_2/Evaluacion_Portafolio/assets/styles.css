@@ -1,0 +1,76 @@
+body.bg-beige {
+  background-color: #f6f0dc;
+}
+
+/* Secciones */
+
+#bio {
+  background-color: #ffe07b;
+  border-radius: 20px;
+  width: 70%;
+}
+
+#proyectos {
+  background-color: #c4e3d3;
+}
+
+#ver-en-github {
+  background-color: #5a4ff6;
+  color: rgb(255, 255, 255);
+}
+
+.proyectosCard {
+  background-color: #d0cdfb;
+  border: #f6f0dc;
+  border-radius: 5px;
+}
+
+#habilidades-Tecnicas {
+  background-color: #29b5b1;
+}
+
+.badge {
+  background-color: #5a4ff6;
+  color: rgb(255, 255, 255);
+}
+
+#habilidades-Personales {
+  background-color: #f9992e;
+  color: white;
+}
+
+#contacto {
+  background-color: #ffc5b3;
+}
+
+#enviar-contacto {
+  background-color: #ffffffc8;
+  color: rgb(0, 0, 0);
+  
+}
+
+/* Fin de Secciones */
+
+
+
+/* Barra de progreso al hacer hover */
+.habilidad .badge {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.habilidad .badge:hover {
+  transform: scale(1.1);
+}
+
+.habilidad .progress {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+.mostrar-barras .habilidad .progress {
+  opacity: 1;
+  max-height: 50px; /* ajusta según altura de tu barra */
+}

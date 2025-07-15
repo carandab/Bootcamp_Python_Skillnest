@@ -1,0 +1,70 @@
+header {
+    background: linear-gradient(to right, #4eaf52, #80c783);
+    color: white;
+    justify-content: space-between;
+    padding: 10px;
+    text-align: center;
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: left ;
+    margin-top: 20px;
+    }
+
+#formulario-retiro {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0.5;
+    align-items: left;
+    margin-top: 5px;
+    padding-left: 35%;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #080808;
+    text-align: left !important;
+    margin-bottom: 20px;
+}
+
+select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #e9e9e9b6;
+    margin-top: 10px;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    border: solid rgb(84, 84, 84) 1px;
+    padding: 10px 20px;
+    width: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #6262627f;
+}

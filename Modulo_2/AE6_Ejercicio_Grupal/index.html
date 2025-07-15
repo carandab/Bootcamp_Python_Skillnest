@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container-fluid my-4 mx-1 align-items-center justify-content-center ">
+        <div class="row">
+            <h1 class="text-center my-5">🎬 Bienvenidos a CineFlash 🎬</h1>
+
+            <!-- Pelicula 1 -->
+
+            <div class="row my-2" id="pelicula-1">
+                <div class="col-md-3 mb-3">
+                    <div class="card py-2">
+                        <img src="assets/star-wars3.jpg" class="card-img-top" alt="Star Wars: Episodio 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Star Wars Episodio III: La Venganza de los Sith</h5>
+                            <button class="btn btn-primary" id="btn-1">Reservar</button>
+
+                            <!-- Modal -->
+
+                            <div class="modal fade" id="modalPelicula1" tabindex="-1"
+                                aria-labelledby="modalPelicula1Label" aria-hidden="true">
+                                <div class="modal-dialog">
+
+                                    <!-- Contenido del Modal -->
+
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabel">Reserva de Entradas</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Cerrar"></button>
+                                        </div>
+
+                                        <!-- Formulario del Modal-->
+
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group row my-2">
+                                                    <label for="staticName"
+                                                        class="col-sm-2 col-form-label">Película:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" readonly class="form-control-plaintext"
+                                                            id="staticName"
+                                                            value="Star Wars Episodio III: La Venganza de los Sith">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="seleccionHorario">Horario</label>
+                                                    <select class="form-control p-2 my-2"
+                                                        id="exampleFormControlSelect1">
+                                                        <option>-- Selecciona una Hora --</option>
+                                                        <option>12:00 - 14:30</option>
+                                                        <option>14:30 - 17:00</option>
+                                                        <option>17:00 - 19:30</option>
+                                                        <option>19:30 - 22:00</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group my-2">
+                                                    <label for="selectorAsientos">Cantidad de Asientos</label>
+                                                    <input type="number" class="form-control my-2" id="cantidadAsientos"
+                                                        min="1" max="8">
+                                                </div>
+                                                <h5 class="my-3">Pago (Simulado)</h5>
+                                                <div class="mb-3">
+                                                    <label for="cardNumber" class="form-label">Número de tarjeta</label>
+                                                    <input type="text" class="form-control" id="creditCard"
+                                                        maxlength="19" minlength="16">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nombnreTitular" class="form-label">Nombre del
+                                                        Titular</label>
+                                                    <input type="text" class="form-control" id="cardName" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="CVV" class="form-label">CVV</label>
+                                                    <input type="password" class="form-control" id="cardCvv"
+                                                        maxlength="3" required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success">Confirmar
+                                                        Reserva</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancelar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pelicula 2 -->
+
+                <div class="row my-2" id="pelicula-2">
+                    <div class="col-md-3 mb-3">
+                        <div class="card py-2">
+                            <img src="assets/img1.jpg" class="card-img-top" alt="In the mood for love">
+                            <div class="card-body">
+                                <h5 class="card-title">In the Mood for Love</h5>
+                                <button class="btn btn-primary" id="btn-2">Reservar</button>
+
+                                <!-- Modal -->
+
+                                <div class="modal fade" id="modalPelicula2" tabindex="-1"
+                                    aria-labelledby="modalPelicula1Label" aria-hidden="true">
+                                    <div class="modal-dialog">
+
+                                        <!-- Contenido del Modal -->
+
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalLabel">Reserva de Entradas</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Cerrar"></button>
+                                            </div>
+
+                                            <!-- Formulario del Modal-->
+
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group row my-2">
+                                                        <label for="staticName"
+                                                            class="col-sm-2 col-form-label">Película:</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticName" value="In the Mood for Love">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="seleccionHorario">Horario</label>
+                                                        <select class="form-control p-2 my-2"
+                                                            id="exampleFormControlSelect2">
+                                                            <option>-- Selecciona una Hora --</option>
+                                                            <option>12:00 - 14:30</option>
+                                                            <option>14:30 - 17:00</option>
+                                                            <option>17:00 - 19:30</option>
+                                                            <option>19:30 - 22:00</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group my-2">
+                                                        <label for="selectorAsientos">Cantidad de Asientos</label>
+                                                        <input type="number" class="form-control my-2"
+                                                            id="cantidadAsientos" min="1" max="8">
+                                                    </div>
+                                                    <h5 class="my-3">Pago (Simulado)</h5>
+                                                    <div class="mb-3">
+                                                        <label for="cardNumber" class="form-label">Número de
+                                                            tarjeta</label>
+                                                        <input type="text" class="form-control" id="creditCard"
+                                                            maxlength="19" minlength="16">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="nombnreTitular" class="form-label">Nombre del
+                                                            Titular</label>
+                                                        <input type="text" class="form-control" id="cardName" required>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="CVV" class="form-label">CVV</label>
+                                                        <input type="password" class="form-control" id="cardCvv"
+                                                            maxlength="3" required>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-success">Confirmar
+                                                            Reserva</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pelicula 3 -->
+
+                    <div class="row my-2" id="pelicula-3">
+                        <div class="col-md-3 mb-3">
+                            <div class="card py-2">
+                                <img src="assets/img2.jpg" class="card-img-top" alt="Life of Pi">
+                                <div class="card-body">
+                                    <h5 class="card-title">Life of Pi</h5>
+                                    <button class="btn btn-primary" id="btn-3">Reservar</button>
+
+                                    <!-- Modal -->
+
+                                    <div class="modal fade" id="modalPelicula3" tabindex="-1"
+                                        aria-labelledby="modalPelicula1Label" aria-hidden="true">
+                                        <div class="modal-dialog">
+
+                                            <!-- Contenido del Modal -->
+
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalLabel3">Reserva de Entradas</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Cerrar"></button>
+                                                </div>
+
+                                                <!-- Formulario del Modal-->
+
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="form-group row my-2">
+                                                            <label for="staticName"
+                                                                class="col-sm-2 col-form-label">Película:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" readonly
+                                                                    class="form-control-plaintext" id="staticName"
+                                                                    value="Life Of PI">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="seleccionHorario">Horario</label>
+                                                            <select class="form-control p-2 my-2"
+                                                                id="exampleFormControlSelect1">
+                                                                <option>-- Selecciona una Hora --</option>
+                                                                <option>12:00 - 14:30</option>
+                                                                <option>14:30 - 17:00</option>
+                                                                <option>17:00 - 19:30</option>
+                                                                <option>19:30 - 22:00</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group my-2">
+                                                            <label for="selectorAsientos">Cantidad de Asientos</label>
+                                                            <input type="number" class="form-control my-2"
+                                                                id="cantidadAsientos" min="1" max="8">
+                                                        </div>
+                                                        <h5 class="my-3">Pago (Simulado)</h5>
+                                                        <div class="mb-3">
+                                                            <label for="cardNumber" class="form-label">Número de
+                                                                tarjeta</label>
+                                                            <input type="text" class="form-control" id="creditCard"
+                                                                maxlength="19" minlength="16">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="nombnreTitular" class="form-label">Nombre del
+                                                                Titular</label>
+                                                            <input type="text" class="form-control" id="cardName"
+                                                                required>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="CVV" class="form-label">CVV</label>
+                                                            <input type="password" class="form-control" id="cardCvv"
+                                                                maxlength="3" required>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-success">Confirmar
+                                                                Reserva</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancelar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!-- Copiar head acá -->
+ <!-- informacion de ataques ciberneticos y dar ejemplos 
+ -- Usar tarjetas o secciones interactivas para cada tipo de amenza 
+ debe ir un carrusel o acordeón con ejemplos de casos reales-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>CyberSafe - Amenazas Comunes</title>
+</head>
+<main>
+
+    
+
+        <!-- Barra de navegación -->
+
+        <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light border-bottom py-3 mb-4">
+            <a href="index.html" class="navbar-brand d-flex align-items-center">
+            <svg class="bi me-2" width="40" height="32" aria-hidden="true">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+            <span class="fs-4">CyberSafe</span>
+            </a>
+
+            <!-- Botón hamburguesa -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido"
+            aria-controls="navbarContenido" aria-expanded="false" aria-label="Alternar navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Contenedor de los links colapsable -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarContenido">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="amenzas_comunes.html" class="nav-link">Amenazas Comunes</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="consejos_de_seguridad.html" class="nav-link">Consejos de Seguridad</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        </div>
+
+        <!-- Contenido Principal -->
+
+        <!-- Definiciones -->
+
+        <section class="container my-5" id="amenazas">
+            <h1 class="text-center mb-4 my-5 text-primary">Amenazas Cibernéticas Comunes</h1>
+            <p class="text-center my-5">A continuación, se proporcionan algunas amenazas cibernéticas comunes que pueden afectar la seguridad de los usuarios:</p>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                
+                <!-- Phishing -->
+                <div class="col">
+                    <div class="card border-danger h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">🔐Phishing</h5>
+                            <p class="card-text">
+                                El phishing es una técnica de engaño utilizada por ciberdelincuentes para obtener información confidencial, como contraseñas o datos bancarios.
+                                Generalmente se presenta como correos electrónicos, mensajes o sitios web falsos que imitan a entidades legítimas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ransomware -->
+                <div class="col">
+                <div class="card border-warning h-100">
+                    <div class="card-body">
+                    <h5 class="card-title text-warning">🧨Ransomware</h5>
+                    <p class="card-text">
+                        Es un tipo de software malicioso que bloquea el acceso a archivos o sistemas del usuario, cifrándolos.
+                        Luego, los atacantes exigen un pago (rescate) para liberar la información.
+                        Es una de las amenazas más lucrativas y peligrosas actualmente.
+                    </p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Malware -->
+                <div class="col">
+                <div class="card border-primary h-100">
+                    <div class="card-body">
+                    <h5 class="card-title text-primary">🦠Malware</h5>
+                    <p class="card-text">
+                        El malware (software malicioso) abarca todo tipo de programas diseñados para infiltrarse,
+                        dañar o robar información de un sistema sin el conocimiento del usuario.
+                        Incluye virus, gusanos, troyanos, spyware y más.
+                    </p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Ataques DDoS -->
+                <div class="col">
+                <div class="card border-secondary h-100">
+                    <div class="card-body">
+                    <h5 class="card-title text-secondary">🌐Ataques DDoS</h5>
+                    <p class="card-text">
+                        Los ataques de denegación de servicio distribuido (DDoS) buscan colapsar un sitio web o servicio en línea mediante
+                        el envío masivo de solicitudes desde múltiples dispositivos,
+                        hasta que el sistema se vuelve inaccesible para los usuarios legítimos.
+                    </p>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Ejemplos -->
+
+        <section class="container my-5" id="ejemplos-reales">
+            <h2 class="text-center text-primary my-5 by-2">Ejemplos Reales de Ataques</h2>
+
+            <div class="accordion" id="accordionEjemplos">
+
+                <!-- Phishing -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPhishing">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePhishing" aria-expanded="true" aria-controls="collapsePhishing">
+                        📨 Phishing: Caso Google Docs (2017)
+                        </button>
+                    </h2>
+                    <div id="collapsePhishing" class="accordion-collapse collapse show" aria-labelledby="headingPhishing" data-bs-parent="#accordionEjemplos">
+                        <img class="img-fluid w-25 d-block mx-auto my-2" src="assets/error-google.jpg" alt="Alerta de error de Google">
+                        <div class="accordion-body">
+                        En 2017, miles de usuarios recibieron un correo falso invitándolos a editar un documento de Google Docs. Al hacer clic, los usuarios eran redirigidos a una página que daba acceso a los atacantes a sus cuentas de Google.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ransomware -->
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="headingRansomware">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRansomware" aria-expanded="false" aria-controls="collapseRansomware">
+                    💸 Ransomware: WannaCry (2017)
+                    </button>
+                </h2>
+                <div id="collapseRansomware" class="accordion-collapse collapse" aria-labelledby="headingRansomware" data-bs-parent="#accordionEjemplos">
+                    <img class="img-fluid w-25 d-block mx-auto my-2" src="assets/warning.jpg" alt="Signo de alerta de ransomware">
+                    <div class="accordion-body">
+                    WannaCry afectó a más de 200,000 computadoras en 150 países. Secuestró sistemas de hospitales, empresas y organismos públicos, exigiendo pagos en Bitcoin para recuperar los archivos.
+                    </div>
+                </div>
+                </div>
+
+                <!-- Malware -->
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="headingMalware">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMalware" aria-expanded="false" aria-controls="collapseMalware">
+                    🦠 Malware: Troyano Emotet
+                    </button>
+                </h2>
+                <div id="collapseMalware" class="accordion-collapse collapse" aria-labelledby="headingMalware" data-bs-parent="#accordionEjemplos">
+                    <img class="img-fluid w-25 d-block mx-auto my-2" src="assets/emotet.jpg" alt="Troyano Emotet">
+                    <div class="accordion-body">
+                    Emotet se propagaba por correos con documentos adjuntos infectados. Permitía a los atacantes robar datos bancarios y dejar la puerta abierta a otros tipos de malware en los equipos infectados.
+                    </div>
+                </div>
+                </div>
+
+                <!-- DDoS -->
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="headingDDoS">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDDoS" aria-expanded="false" aria-controls="collapseDDoS">
+                    🌐 DDoS: Ataque a Dyn (2016)
+                    </button>
+                </h2>
+                <div id="collapseDDoS" class="accordion-collapse collapse" aria-labelledby="headingDDoS" data-bs-parent="#accordionEjemplos">
+                    <img class="img-fluid w-25 d-block mx-auto my-2" src="assets/DDoS.jpg" alt="Esquema de ataque DDoS">
+                    <div class="accordion-body">
+                    El proveedor DNS Dyn fue atacado con un masivo DDoS usando dispositivos del IoT. Esto afectó a sitios como Twitter, Netflix y Spotify, dejándolos inaccesibles durante horas en Estados Unidos y Europa.
+                    </div>
+                </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-3 mt-5 mb-1">
+            <hr>
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="index.html" class="nav-link" aria-current="page">Inicio</a></li>
+                <li class="nav-item"><a href="amenzas_comunes.html" class="nav-link">Amenazas Comunes</a></li>
+                <li class="nav-item"><a href="consejos_de_seguridad.html" class="nav-link">Consejos de Seguridad</a></li>
+            </ul>
+            <p class="text-center text-body-secondary">2025 - Evaluación Módulo 2 - Bootcamp Fullstack Python, Talento Digital - Skillnest - <a href="https://github.com/carandab" target="_blank" style="text-decoration: none;"> Cristian Aranda B.</a></p> 
+        </footer>
+    </body>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+
+
+</main>
+
+</html>

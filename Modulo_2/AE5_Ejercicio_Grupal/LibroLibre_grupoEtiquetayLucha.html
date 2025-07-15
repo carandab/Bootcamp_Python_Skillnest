@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="assets/style.css" />
+        <title>LibroLibre</title>
+    </head>
+    <body>
+
+        <!-- Barra de navegación -->
+
+        <header>
+            <a href="#" id="main">LibroLibre</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#booklist">Catalogo</a></li>
+                    <li><a href="#registry">Registro</a></li>
+                    <li><a href="#about-us">Sobre Nosotros</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        
+        <!-- Contenido principal -->
+        <main> 
+            <!-- SecciónCatalogo de libros -->
+
+            <!-- Buscador -->
+
+            <div id="booklist">
+                <h1>Catálogo de Libros</h1>
+                <form>
+                    <input type="search" id="search-input" placeholder="Buscar por título, autor o género" />
+                    <input type="button" id="search-btn" value="Buscar" />
+                </form>
+            </div>
+            <section id="catalog">
+                <div class="container">
+                    <h2>Catálogo de libros</h2>
+                    <div id="result-count">Mostrando 6 libros</div>
+                </div>
+                <div id="book-list" class="card">
+                    <!-- Libros se cargarán dinámicamente con JavaScript -->
+                </div>
+            </section>
+
+        <!-- Sección Registro -->
+
+            <div id="registry">
+                <h1>Registro de usuarios</h1>
+                <form class="registro" id="register-form">
+                    <input type="text" id="name" placeholder="Nombre Completo" />
+                    <input type="email" id="email"  placeholder="Correo Electronico"/>
+                    <input type="password" id="password"  placeholder="Contraseña"/>
+                    <input type="password" id="confirm-password" placeholder="Confirmar Contraseña"/>
+                    <input type="submit" id="boton-registro" value="Registrar" />
+                </form>
+            </div>
+
+            <!-- Sección Sobre nosotros -->
+
+            <div id="about-us">
+                <h1>Sobre Nosotros</h1>
+                <p>LibroLibre es una biblioteca digital creada por tres entusiastas de la lectura con
+                el objetivo de facilitar el acceso a libros electrónicos y audiolibros de manera simple y eficiente</p>
+            </div>
+        </main>
+        
+<!-- JavaScript -->
+
+        <script src="script.js"></script> 
+
+    </body>
+</html>

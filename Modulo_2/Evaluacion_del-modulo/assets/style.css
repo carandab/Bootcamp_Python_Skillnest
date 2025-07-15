@@ -1,0 +1,38 @@
+
+/* Hasta pantallas medianas */
+@media (max-width: 991.98px) {
+  #hero {
+    text-align: center;
+  }
+
+  #hero-img {
+    display: block;
+    margin-left: 40px;
+    margin-right: -40px;
+  }
+}
+
+/* A partir de pantallas grandes */
+@media (min-width: 992px) {
+  #hero {
+    text-align: left;
+  }
+
+  #hero-img {
+    margin-left: auto;
+    margin-right: 0;
+    display: block;
+  }
+}
+
+.card {
+  background: #efefefe9;;
+}
+
+.accordion-item {
+  background: #efefefe9;;
+}
+
+#botonModal  {
+  font-size: 30px; ;
+}
