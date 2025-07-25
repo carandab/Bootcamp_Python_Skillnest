@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="assets/styles/styles.css" rel="stylesheet" />
+    <title>Portafolio</title>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark navbar-expand-lg mt-0 mb-5" aria-label="Navbar" id="navbar">
+        <div class="container-fluid d-flex align-items-center justify-content-between my-2 mx-3">
+            <h3 class="navbar-brand mb-0">Portafolio</h3>
+
+            <!-- Menu boton -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#menu-portafolio" aria-controls="menu-portafolio"
+                    aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu -->
+
+            <div class="collapse navbar-collapse" id="menu-portafolio">
+                <ul class="navbar-nav ms-auto mb-0 gap-2 d-flex align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#introduccion">Introducción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#habilidades-tecnicas">H. Técnicas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#habilidades-personales">H. Personales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Contenido Principal -->
+
+    <!-- Introducción -->
+    <section class="container p-5 rounded my-1 mt-3" id="introduccion">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+                    <a href="https://github.com/carandab" target="_blank"><img src="assets/images/James Baxter.png" alt="Foto de Perfil" id="foto-perfil" class="img-fluid"></a>
+                </div>
+                <div class="col-12 col-md-8" id="presentacion">
+                    <h1 class="fw bold text-end">Cristian Aranda</h1>
+                    <p class="lead text-end">Soy un desarrollador full stack buscando una oportunidad en una posición de junior dentro del mundo de la programación
+                        y el desarrollo de software.
+                        Me gusta el área del desarrollo Back End y el manejo de bases de datos, pero también poseo habilidades en el ámbito del Front End.
+                        Tengo toda la disposición de seguir aprendiendo y mejorar mis habilidades dentro de un equipo de trabajo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyectos -->
+
+    <section class="container px-4 py-5 " id="proyectos">
+        <h2 class="pb-2 border-bottom text-center">Proyectos</h2>
+        <div class="row g-5 py-5">
+
+            <!-- Repositorio General -->
+            <div class="col-md-4 d-flex flex-column justify-content-center align-items-center text-center gap-4 p-5" id="repositorio-general">
+                <h2 class="fw-bold">Repositorio General del Bootcamp</h2>
+                <p>Aqui podras encontrar el repositorio general de todas las actividades que se realizaron
+                    a lo largo del Bootcamp de desarrollo FullStack Python/Django de Skillnest para Talento Digital.</p>
+                <a href="https://github.com/carandab/Bootcamp_Python_Skillnest" id="btn-repositorio" target="_blank" class="btn btn-lg">Ver en GitHub <i class="fab fa-github ms-2"></i></a>
+            </div>
+
+            <!-- Proyectos Individuales -->
+            <div class="col-md-8"  id="proyectos-individuales">
+                <div class="row g-4 py-2">
+                    <div class="col-md-4">
+                        <div class="proyecto d-flex flex-column gap-2 p-4" id="proyecto1">
+                            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></div>
+                            <h4 class="fw-semibold mb-0 pb-4">Conversor de Unidades Métrico-Imperial</h4>
+                            <a href="" id="btn-repositorio" target="_blank" class="btn btn-lg">Ver en GitHub <i class="fab fa-github ms-2"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="proyecto d-flex flex-column gap-2 p-4" id="proyecto2">
+                            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></div>
+                            <h4 class="fw-semibold mb-0 pb-4">Conversor de Unidades Métrico-Imperial</h4>
+                            <a href="" id="btn-repositorio" target="_blank" class="btn btn-lg">Ver en GitHub <i class="fab fa-github ms-2"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="proyecto d-flex flex-column gap-2 p-4" id="proyecto3">
+                            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></div>
+                            <h4 class="fw-semibold mb-0 pb-4">Conversor de Unidades Métrico-Imperial</h4>
+                            <a href="" id="btn-repositorio" target="_blank" class="btn btn-lg">Ver en GitHub <i class="fab fa-github ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4 py-2">
+                    <div class="col-md-4">
+                        <div class="proyecto d-flex flex-column gap-2 p-4" id="proyecto4">
+                            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></div>
+                            <h4 class="fw-semibold mb-0 pb-4">Conversor de Unidades Métrico-Imperial</h4>
+                            <a href="" id="btn-repositorio" target="_blank" class="btn btn-lg">Ver en GitHub <i class="fab fa-github ms-2"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="proyecto d-flex flex-column gap-2 p-4" id="proyecto5">
+                            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></div>
+                            <h4 class="fw-semibold mb-0 pb-4">Conversor de Unidades Métrico-Imperial</h4>
+                            <a href="" id="btn-repositorio" target="_blank" class="btn btn-lg">Ver en GitHub <i class="fab fa-github ms-2"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="proyecto d-flex flex-column gap-2 p-4" id="proyecto6">
+                            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></div>
+                            <h4 class="fw-semibold mb-0 pb-4">Conversor de Unidades Métrico-Imperial</h4>
+                            <a href="" id="btn-repositorio" target="_blank" class="btn btn-lg">Ver en GitHub <i class="fab fa-github ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Habilidades Técnicas  -->
+
+    <section class="container px-4 py-5 " id="habilidades-tecnicas">
+        <h2 class="text-center mb-2 border-bottom">Habilidades Técnicas (Proyectadas)</h2>
+        <div class="container px-4 py-5" id="ht-cards">
+            <!-- Front End -->
+            <h4 class="subtitulo fw-semibold text-center mb-4 g-4">Front End</h4>
+            <div class="row g-4 my-1 align-items-center justify-content-center">
+                <div class="col-md-4">
+                    <div class="ht d-flex flex-column gap-2" id="ht1">
+                        <span class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></span>
+                        <h4 class="fw-semibold mb-0">
+                            <i class="fa-solid fa-code"></i> HTML 
+                            <small class="click-hint"></small>
+                        </h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Avanzado</small>
+                            <small>80%</small>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="80%"></div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-4">
+                    <div class="ht d-flex flex-column gap-2" id="ht2">
+                        <span class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></span>
+                        <h4 class="fw-semibold mb-0"><i class="fa-solid fa-hashtag"></i> CSS</h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Intermedio</small>
+                            <small>70%</small>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="70%"></div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="row g-4 my-1 align-items-center justify-content-center">
+                <div class="col-md-4">
+                    <div class="ht d-flex flex-column gap-2" id="ht3">
+                        <span class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></span>
+                        <h4 class="fw-semibold mb-0"><i class="fa-brands fa-js"></i> JavaScript</h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Básico</small>
+                            <small>60%</small>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="60%"></div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-4">
+                    <div class="ht d-flex flex-column gap-2" id="ht4">
+                        <span class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></span>
+                        <h4 class="fw-semibold mb-0"><i class="fa-solid fa-code"></i> JQuery</h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Básico</small>
+                            <small>55%</small>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="55%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ht d-flex flex-column gap-2" id="ht5">
+                        <span class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></span>
+                        <h4 class="fw-semibold mb-0"><i class="fa-brands fa-bootstrap"></i> Bootstrap</h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Intermedio</small>
+                            <small>75%</small>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="75%"></div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <!-- Back End -->
+            <h4 class="subtitulo fw-semibold text-center my-5">Back End</h4>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="ht d-flex flex-column gap-2" id="ht6">
+                        <span class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></span>
+                        <h4 class="fw-semibold mb-0"><i class="fa-brands fa-python"></i> Python</h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Avanzado</small>
+                            <small>85%</small>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="85%"></div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-4">
+                    <div class="ht d-flex flex-column gap-2" id="ht7">
+                        <span class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></span>
+                        <h4 class="fw-semibold mb-0"><i class="fa-solid fa-code"></i> Django</h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Avanzado</small>
+                            <small>80%</small>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="80%"></div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-4">
+                    <div class="ht d-flex flex-column gap-2" id="ht8">
+                        <span class="feature-icon-small d-inline-flex align-items-center justify-content-center fs-4"></span>
+                        <h4 class="fw-semibold mb-0"><i class="fa-solid fa-database"></i> SQL/MySQL</h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Avanzado</small>
+                            <small>85%</small>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="85%"></div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </section>
+
+    <!-- Habilidades Personales  -->
+
+    <section class="container px-4 py-5 my-5" id="habilidades-personales">
+        <h2 class="mb-3 pb-2 border-bottom text-center">Habilidades Personales</h2>
+        <!-- Primera Fila -->
+
+        <div class="row g-4 py-5 justify-content-center">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="hp d-flex align-items-center">
+                    <i class="bi bi-people-fill flex-shrink-0 me-3" style="font-size: 1.75rem;"></i>
+                    <h3 class="fw-bold mb-0 fs-4">Trabajo en Equipo</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="hp d-flex align-items-center">
+                    <i class="bi bi-lightbulb-fill flex-shrink-0 me-3" style="font-size: 1.75rem;"></i>
+                    <h3 class="fw-bold mb-0 fs-4">Resolución de problemas</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="hp d-flex align-items-center">
+                    <i class="bi bi-arrow-repeat flex-shrink-0 me-3" style="font-size: 1.75rem;"></i>
+                    <h3 class="fw-bold mb-0 fs-4">Adaptabilidad</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="hp d-flex align-items-center">
+                    <i class="bi bi-clock-fill flex-shrink-0 me-3" style="font-size: 1.75rem;"></i>
+                    <h3 class="fw-bold mb-0 fs-4">Gestión del Tiempo</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda fila -->
+        <div class="row g-4 py-3 justify-content-center">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="hp d-flex align-items-center">
+                    <i class="bi bi-chat-dots-fill flex-shrink-0 me-3" style="font-size: 1.75rem;"></i>
+                    <h3 class="fw-bold mb-0 fs-4">Comunicación efectiva</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="hp d-flex align-items-center">
+                    <i class="bi bi-book-fill flex-shrink-0 me-3" style="font-size: 1.75rem;"></i>
+                    <h3 class="fw-bold mb-0 fs-4">Aprendizaje Rápido</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="hp d-flex align-items-center">
+                    <i class="bi bi-translate flex-shrink-0 me-3" style="font-size: 1.75rem;"></i>
+                    <h3 class="fw-bold mb-0 fs-4">Inglés avanzado</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="hp d-flex align-items-center">
+                    <i class="bi bi-gear-fill flex-shrink-0 me-3" style="font-size: 1.75rem;"></i>
+                    <h3 class="fw-bold mb-0 fs-4">Pensamiento Analítico</h3>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+
+    <!-- Contacto -->
+
+    <section class="container py-4">
+        <h4 class="text-center mb-4">CONTACTO</h4>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="p-4 rounded" id="contacto">
+                    <div class="row">
+                    <!-- Columna de íconos -->
+                        <div class="col-2 d-flex flex-column align-items-start">
+                            <a href="https://github.com/carandab" class="text-light mb-3"><i class="fab fa-github fa-2x"></i></a>
+                            <a href="https://www.linkedin.com/in/cristian-arandab/" class="text-light"><i class="fab fa-linkedin fa-2x"></i></a>
+                        </div>
+                    <!-- Columna del formulario -->
+                        <div class="col-10">
+                            <form>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Nombre" required />
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="Email" required />
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="4" placeholder="Escriba un mensaje" required></textarea>
+                                </div>
+                                <button type="submit" class="btn w-100" id="enviar-contacto">Enviar</button>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script/script.js"></script>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 """ Evaluacion del Módulo 3 """
-
+import os
 # =============== Definiciones ===============
 
 # Lista de tareas
@@ -8,22 +8,6 @@ tareas = [
     {"id": 2, "descripcion": "Hacer ejercicio", "completada": False},
     {"id": 3, "descripcion": "Sacar la basura", "completada": False}
 ]
-
-# Define la función show_menu
-def show_menu():
-
-    """ Muestra el menú principal de la aplicación."""
-
-    print("\n-----Bienvenido a la Evaluación del Módulo 3-----\n")
-    print("\n=== MENÚ PRINCIPAL ===\n")
-    print("1 - Agregar tarea")
-    print("2 - Ver tareas")
-    print("3 - Marcar tarea como completada")
-    print("4 - Eliminar tarea")
-    print("5 - Salir")
-    print("\nPor favor, seleccione una opción del menú:\n")
-    print("=" * 20)
-    print("\n")
 
 # Define la función add_task
 def add_task(lista_tareas):
@@ -35,7 +19,6 @@ def add_task(lista_tareas):
     nueva_tarea = {"id": len(lista_tareas) + 1, "descripcion": descripcion, "completada": False}
     tareas.append(nueva_tarea)
     print("\n---Tarea agregada exitosamente---\n")
-
 
 # Define la función show_list
 def show_list(lista_tareas):
@@ -53,16 +36,17 @@ def show_list(lista_tareas):
 # Define la función delete_task
 def delete_task(lista_tareas):
 
-    """ Elimina una tarea de la lista "Tareas" """
+    """ Elimina una tarea de la lista 'Tareas' """
 
     print("\n====== Eliminar tarea ======\n")
     id_tarea = int(input("Ingrese el ID de la tarea que desea eliminar: "))
     for tarea in lista_tareas:
         if tarea["id"] == id_tarea:
             lista_tareas.remove(tarea)
-            print("\n---Tarea eliminada exitosamente---\n")
+            print("\n--- Tarea eliminada exitosamente ---\n")
             break
-
+    else:
+        print("\n--- Tarea no encontrada. Ingrese un ID válido ---\n")
 # Define la funcion check_task
 def check_task(lista_tareas):
 
@@ -85,13 +69,28 @@ def check_task(lista_tareas):
     if not tarea_encontrada:
         print(f"\n---No se encontró ninguna tarea con ID {id_tarea}---\n")
 
-
 # Define la función pausar
 def pausar():
 
     """ Pausa la ejecución del programa hasta que el usuario presione Enter """
 
     input("\n---Presiona Enter para continuar---\n")
+
+# Define la función show_menu
+def show_menu():
+
+    """ Muestra el menú principal de la aplicación."""
+
+    print("\n-----Bienvenido a la Evaluación del Módulo 3-----\n")
+    print("\n=== MENÚ PRINCIPAL ===\n")
+    print("1 - Agregar tarea")
+    print("2 - Ver tareas")
+    print("3 - Marcar tarea como completada")
+    print("4 - Eliminar tarea")
+    print("5 - Salir")
+    print("\nPor favor, seleccione una opción del menú:\n")
+    print("=" * 20)
+    print("\n")
 
 # Define la función menu_main
 def menu_main():
@@ -113,18 +112,19 @@ def menu_main():
             pausar()
 
         elif option == "3":
-            # Llama a la función delete_task
-            delete_task(tareas)
+            # Llama a la función check_task
+            check_task(tareas)
             pausar()
 
         elif option == "4":
-            # Llama a la función check_task
-            check_task(tareas)
+            # Llama a la función delete_task
+            delete_task(tareas)
             pausar()
 
         elif option == "5":
             # Salir del programa
             print("\n¡Hasta luego!\n")
+            os.system(f'echo "{tareas}" >> evaluación_de_modulo_3.txt')
             break
 
         else:
