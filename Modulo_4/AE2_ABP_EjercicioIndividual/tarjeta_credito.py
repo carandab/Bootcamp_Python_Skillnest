@@ -12,7 +12,7 @@ class TarjetaCredito:
     def compra(self, monto):
 
         if (self.saldo_pagar + monto) > self.limite_credito:
-            print(f"Tarjeta excede límite. No se ha realizado el cobro de {monto}")
+            print(f"\nTarjeta excede límite. No se ha realizado el cobro de ${monto}")
 
         else:
             self.saldo_pagar = self.saldo_pagar + monto
@@ -22,7 +22,7 @@ class TarjetaCredito:
 
 
     def pago(self, monto):
-        
+
         if monto >= self.saldo_pagar:
             monto_cobrado = self.saldo_pagar
             self.saldo_pagar = 0
@@ -43,9 +43,9 @@ class TarjetaCredito:
     def mostrar_info_tarjeta(self):
 
         print("\n")
-        print(f"Saldo a pagar: {self.saldo_pagar}")
-        print(f"Limite de credito: {self.limite_credito}")
-        print(f"Tasa de Interes: {self.intereses}")
+        print(f"Saldo a pagar: ${self.saldo_pagar}")
+        print(f"Limite de credito: ${self.limite_credito}")
+        print(f"Tasa de Interes: {self.intereses *100}% ")
         print("\n")
 
         return self
