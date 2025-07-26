@@ -18,7 +18,11 @@ if __name__ == '__main__':
     #Para la segunda tarjeta, haz 3 compras y 2 pagos. Luego cobra los intereses
     #  y muestra la información de la tarjeta; todo esto en una sola línea a través de la encadenación.
     print("=== Tarjeta 2 ===\n")
-    tarjeta2.compra(100).compra(200).compra(300).pago(150).pago(1000).cobrar_interes().mostrar_info_tarjeta()
+    tarjeta2.compra(100).compra(200).compra(300).pago(150).pago(100).cobrar_interes().mostrar_info_tarjeta()
+
+    print("---- Ejemplo por si el pago excediera el saldo a pagar ----\n")
+    tarjeta2.pago(1000).cobrar_interes().mostrar_info_tarjeta()
+    print("\n")
 
 
     #Para la tercera tarjeta, haz 5 compras y excede su límite de crédito.
