@@ -101,8 +101,3 @@ $(document).ready(function() {
     });
 });
 
-// Función opcional para resetear las animaciones (para testing)
-function resetSkillBars() {
-    $('.ht').removeClass('animated');
-    $('.skill-progress-bar').css('width', '0%');
-}
