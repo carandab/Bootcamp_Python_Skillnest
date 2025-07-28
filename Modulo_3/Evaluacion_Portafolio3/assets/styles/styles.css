@@ -73,9 +73,13 @@ body {
 
 .btn-repositorio {
 
-  background-color: #4521a794;
+  background-color: #4521a7aa;
   color: white;  
   align-self: center;
+}
+
+.btn-repositorio:hover {
+  background-color: #4f29b89f;
 }
 
 
