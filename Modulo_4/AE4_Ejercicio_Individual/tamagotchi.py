@@ -42,7 +42,7 @@ class Tamagotchi:
       if self.salud_actual > self.salud_maxima:
          self.salud_actual = self.salud_maxima
          print("Tu tamagotchi está en perfecta salud!")
-      print("La energia de tu tamagotchi aumentó en 5! 😪")
+      print("La energia de tu tamagotchi aumentó en 5! 😄")
       self.energia += 5
       if self.energia < 0:
          self.energia = 0
