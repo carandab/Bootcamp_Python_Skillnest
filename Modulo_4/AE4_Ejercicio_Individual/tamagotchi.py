@@ -78,7 +78,7 @@ class Tamagotchi:
    def mostrar_info(self):
 
       print(f"Nombre: {self._nombre}, Color: {self._color}")
-      print("-" * 30)
+      print("-" * 46)
       print(f"Salud: {self.salud_maxima}/{self.salud_actual}, Felicidad: {self.felicidad}, Energia: {self.energia}")
 
 class Kuchipatchi(Tamagotchi):
@@ -87,6 +87,7 @@ class Kuchipatchi(Tamagotchi):
 
       super().__init__(nombre, color)
       self.salud_maxima += 20
+      self.salud_actual += 20
       self.felicidad += 15
 
 class Mimitchi(Tamagotchi):
@@ -94,7 +95,9 @@ class Mimitchi(Tamagotchi):
    def __init__(self, nombre, color):
 
       super().__init__(nombre, color)
-      self.salud_maxima += 20
+      self.salud_maxima += 10
+      self.salud_actual += 10
+      self.felicidad -= 10
 
 class Pochitchi(Tamagotchi):
 
@@ -102,3 +105,5 @@ class Pochitchi(Tamagotchi):
 
       super().__init__(nombre, color)
       self.felicidad += 25
+      self.salud_maxima -= 20
+      self.salud_actual -= 20

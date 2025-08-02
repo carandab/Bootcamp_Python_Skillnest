@@ -13,21 +13,27 @@ class Persona:
       
       print("Juegas con tu tamagotchi 😁")
       self.__tamagotchi.jugar()
+      print("\n")
 
    def dar_comida(self):
       print("Alimentaste a tu tamagotchi 🍲")
       self.__tamagotchi.comer()
+      print("\n")
 
    def curar_tamagotchi(self):
       print("Curaste a tu tamagotchi 💊")
       self.__tamagotchi.curar()
+      print("\n")
 
    def dormir(self):
       print("😴😴😴")
       self.__tamagotchi.dormir()
+      print("\n")
 
    def nono(self):
       self.__tamagotchi.golpear()
+      print("\n")
+
 
    # Muestra la informacion del tamagotchi
 
