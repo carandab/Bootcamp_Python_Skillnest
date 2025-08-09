@@ -1,0 +1,7 @@
+Camiseta Azul, 15 USD, 50 unidades, M
+Pantalon Negro, 30 USD, 50 unidades, L
+Chaqueta Roja, 40 USD, 20 unidades, S
+Zapatillas Deportivas, 60 USD, 10 unidades, 42
+Gorra Blanca, 10 USD, 100 unidades, Talla Única
+
+
