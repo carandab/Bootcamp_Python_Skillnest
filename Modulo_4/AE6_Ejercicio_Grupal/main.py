@@ -72,7 +72,7 @@ def consulta_productos():
             
             print("\nProducto modificado.")
             
-            # 7. Mueve el puntero de nuevo al inicio para mostrar el resultado.
+            # Mueve el puntero de nuevo al inicio para mostrar el resultado.
             file.seek(0)
             print("\n=== Inventario modificado ===")
             
