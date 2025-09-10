@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -101,
-    "scrollLeft": -44,
+    "scrollTop": 0,
+    "scrollLeft": -284,
     "zoomLevel": 1,
     "show": 511,
     "database": 4,
@@ -195,7 +195,7 @@
         "comment": "",
         "dataType": "VARCHAR",
         "default": "",
-        "options": 0,
+        "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
@@ -204,7 +204,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1757464141347,
+          "updateAt": 1757465192960,
           "createAt": 1757463731960
         }
       },
@@ -215,7 +215,7 @@
         "comment": "",
         "dataType": "VARCHAR",
         "default": "",
-        "options": 0,
+        "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
@@ -224,7 +224,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1757464142985,
+          "updateAt": 1757465194176,
           "createAt": 1757463732273
         }
       },
@@ -235,7 +235,7 @@
         "comment": "",
         "dataType": "VARCHAR",
         "default": "",
-        "options": 0,
+        "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
@@ -244,7 +244,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1757464144647,
+          "updateAt": 1757465194865,
           "createAt": 1757463732540
         }
       },
@@ -255,7 +255,7 @@
         "comment": "",
         "dataType": "VARCHAR",
         "default": "",
-        "options": 0,
+        "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
@@ -264,7 +264,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1757464147652,
+          "updateAt": 1757465196006,
           "createAt": 1757463732771
         }
       },
@@ -355,7 +355,7 @@
         "comment": "",
         "dataType": "VARCHAR",
         "default": "",
-        "options": 0,
+        "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
@@ -364,7 +364,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1757464130869,
+          "updateAt": 1757465202881,
           "createAt": 1757463745296
         }
       },
@@ -375,7 +375,7 @@
         "comment": "",
         "dataType": "VARCHAR",
         "default": "",
-        "options": 0,
+        "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 62,
@@ -384,7 +384,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1757464132863,
+          "updateAt": 1757465203349,
           "createAt": 1757463745469
         }
       },
@@ -393,9 +393,9 @@
         "tableId": "3adhSXxQd_MkERQGyBwMM",
         "name": "precio",
         "comment": "",
-        "dataType": "VARCHAR",
+        "dataType": "INT",
         "default": "",
-        "options": 0,
+        "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
@@ -404,7 +404,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1757464134414,
+          "updateAt": 1757465212245,
           "createAt": 1757463745667
         }
       },
