@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Producto{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+        <div class="card">
+
+            <div class="card-header">
+                <i class="bi bi-plus-circle"></i> Crear Nuevo Producto
+            </div>
+
+            <div class="card-body">
+
+                <form method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Información básica del producto -->
+                    <h5 class="mb-3 text-primary">
+                        <i class="bi bi-info-circle"></i> Información Básica
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label for="{{ producto_form.nombre.id_for_label }}" class="form-label">
+                            Nombre del Producto *
+                        </label>
+                        {{ producto_form.nombre }}
+                        {% if producto_form.nombre.errors %}
+                            <div class="text-danger">
+                                {{ producto_form.nombre.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ producto_form.descripcion.id_for_label }}" class="form-label">
+                            Descripción *
+                        </label>
+                        {{ producto_form.descripcion }}
+                        {% if producto_form.descripcion.errors %}
+                            <div class="text-danger">
+                                {{ producto_form.descripcion.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ producto_form.precio.id_for_label }}" class="form-label">
+                                Precio *
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                {{ producto_form.precio }}
+                            </div>
+                            {% if producto_form.precio.errors %}
+                                <div class="text-danger">
+                                    {{ producto_form.precio.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ producto_form.categoria.id_for_label }}" class="form-label">
+                                Categoría *
+                            </label>
+                            {{ producto_form.categoria }}
+                            {% if producto_form.categoria.errors %}
+                                <div class="text-danger">
+                                    {{ producto_form.categoria.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    <!-- Etiquetas -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            <i class="bi bi-tags"></i> Etiquetas
+                        </label>
+
+                        <div class="checkbox-group">
+                            {{ producto_form.etiquetas_seleccionadas }}
+                        </div>
+
+                        {% if producto_form.etiquetas_seleccionadas.errors %}
+                            <div class="text-danger">
+                                {{ producto_form.etiquetas_seleccionadas.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Detalles del producto -->
+
+                    <h5 class="mb-3 text-primary">
+                        <i class="bi bi-rulers"></i> Detalles del Producto
+                    </h5>
+
+                    <div class="row">
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ detalles_form.peso.id_for_label }}" class="form-label">
+                                Peso (kg)
+                            </label>
+                            {{ detalles_form.peso }}
+                            {% if detalles_form.peso.errors %}
+                                <div class="text-danger">
+                                    {{ detalles_form.peso.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ detalles_form.dimensiones.id_for_label }}" class="form-label">
+                                Dimensiones
+                            </label>
+                            {{ detalles_form.dimensiones }}
+                            {% if detalles_form.dimensiones.errors %}
+                                <div class="text-danger">
+                                    {{ detalles_form.dimensiones.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Botones -->
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'lista_productos' %}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Crear Producto
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- Ayuda -->
+        <div class="card mt-3">
+
+            <div class="card-body">
+                <h6><i class="bi bi-lightbulb"></i> Ayuda</h6>
+                <ul class="mb-0">
+                    <li>Los campos marcados con <strong>*</strong> son obligatorios</li>
+                    <li>Puedes seleccionar múltiples etiquetas para el producto</li>
+                    <li>Los detalles (peso y dimensiones) son opcionales</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %} GoWest |  Todo para tu Mascota{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero / Carrusel-->
+
+<section id="hero-banner" class="position-relative overflow-hidden bg-light py-5">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="display-3 fw-bold text-dark mb-4">
+                    Todo para tu <span class="text-success">Mascota</span>
+                </h1>
+                <p class="lead text-muted mb-4">
+                    Encuentra los mejores productos para el cuidado, alimentación y diversión de tus compañeros peludos.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'products:lista_productos' %}" class="btn btn-success btn-lg px-4">
+                        <i class="fas fa-shopping-bag me-2"></i>Ver Productos
+                    </a>
+                    {% if not user.is_authenticated %}
+                    <a href="{% url 'users:registro' %}" class="btn btn-outline-success btn-lg px-4">
+                        Registrarse
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="{% static 'images/hero-pets.png' %}" alt="Foto de un perro" class="img-fluid hero-image rounded-pill border" style="max-height: 500px;">
+            </div>
+        </div>
+    </div>
+    
+
+
+</section>
+
+<!-- Categorias -->
+
+ <section id="categories" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Categorías Destacadas</h2>
+            <p class="text-muted">Explora nuestras categorías de productos</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Categoria Card 1 -->
+            <div class="col-md-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-bone fa-3x text-success"></i>
+                    </div>
+                    <h4 class="mt-3">Alimentos</h4>
+                    <p class="text-muted">Nutrición balanceada para tu mascota</p>
+                    <a href="{% url 'products:lista_productos' %}" class="btn btn-sm btn-outline-success">Ver Más</a>
+                </div>
+            </div>
+            
+            <!-- Categoria Card 2 -->
+            <div class="col-md-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-baseball-ball fa-3x text-success"></i>
+                    </div>
+                    <h4 class="mt-3">Juguetes</h4>
+                    <p class="text-muted">Diversión garantizada</p>
+                    <a href="{% url 'products:lista_productos' %}" class="btn btn-sm btn-outline-success">Ver Más</a>
+                </div>
+            </div>
+            
+            <!-- Categoria Card 3 -->
+            <div class="col-md-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-spa fa-3x text-success"></i>
+                    </div>
+                    <h4 class="mt-3">Cuidado e Higiene</h4>
+                    <p class="text-muted">Productos para el bienestar</p>
+                    <a href="{% url 'products:lista_productos' %}" class="btn btn-sm btn-outline-success">Ver Más</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- Destacados -->
+
+<section id="featured-products" class="py-5 bg-light">
+
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Productos Destacados</h2>
+            <p class="text-muted">Los favoritos de nuestros clientes</p>
+        </div>
+        
+        <div class="row g-4">
+            {% if featured_products %}
+                {% for product in featured_products %}
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product-card" data-href="{% url 'products:detalle_producto' product.pk %}">
+
+                        <!-- Badge para productos -->
+                        {% if product.sale_price|precio_clp %}
+                        <span class="product-badge bg-danger">¡Oferta!</span>
+                        {% elif product.is_featured %}
+                        <span class="product-badge bg-success">Destacado</span>
+                        {% endif %}
+                        
+                        <!-- Imagenes de productos -->
+                        <div class="product-image">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+                            {% else %}
+                                <img src="{% static 'images/placeholder.png' %}" alt="{{ product.name }}" class="img-fluid">
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Informacion de productos -->
+                        <div class="product-info p-3">
+                            <h5 class="product-title">{{ product.name }}</h5>
+                            <p class="text-muted small mb-2">{{ product.category.name|default:"Sin categoría" }}</p>
+                            
+                            <!-- Precios -->
+                            <div class="product-price mb-3">
+                                {% if product.sale_price %}
+                                    <span class="text-muted text-decoration-line-through small">{{ product.price|precio_clp }}</span>
+                                    <span class="text-success fw-bold fs-5 ms-2">{{ product.sale_price|precio_clp }}</span>
+                                {% else %}
+                                    <span class="text-success fw-bold fs-5">{{ product.price|precio_clp }}</span>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Stock Disponible -->
+                            {% if product.stock > 0 %}
+                                <span class="badge bg-success mb-2">
+                                    <i class="fas fa-check"></i> Disponible
+                                </span>
+                            {% else %}
+                                <span class="badge bg-danger mb-2">
+                                    <i class="fas fa-times"></i> Agotado
+                                </span>
+                            {% endif %}
+                            
+                            <!-- Agregar al carrito -->
+                            {% if product.stock > 0 %}
+                                <a href="{% url 'products:add_to_cart' product.id %}" class="btn btn-success btn-sm w-100 add-to-cart-btn">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al Carrito
+                                </a>
+                            {% else %}
+                                <button class="btn btn-secondary btn-sm w-100" disabled>
+                                    No Disponible
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
+                    <p class="text-muted">No hay productos destacados por el momento</p>
+                    <a href="{% url 'products:lista_productos' %}" class="btn btn-success">Ver Todos los Productos</a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Boton de ver todos los productos -->
+        {% if featured_products %}
+        <div class="text-center mt-5">
+            <a href="{% url 'products:lista_productos' %}" class="btn btn-outline-success btn-lg">
+                Ver Todos los Productos <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+</section>
+
+<!-- Por que elegirnos -->
+
+<section id="why-us" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">¿Por Qué Elegirnos?</h2>
+            <p class="text-muted">Nos preocupamos por ti y tu mascota</p>
+        </div>
+        
+        <div class="row g-4 text-center">
+
+            <!-- Feature 1 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="feature-box">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-shipping-fast fa-3x text-success"></i>
+                    </div>
+                    <h5>Envío Rápido</h5>
+                    <p class="text-muted small">Entrega en 24-48 horas</p>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="feature-box">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-shield-alt fa-3x text-success"></i>
+                    </div>
+                    <h5>Compra Segura</h5>
+                    <p class="text-muted small">Pagos 100% seguros</p>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="feature-box">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-award fa-3x text-success"></i>
+                    </div>
+                    <h5>Calidad Garantizada</h5>
+                    <p class="text-muted small">Productos certificados</p>
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="feature-box">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-headset fa-3x text-success"></i>
+                    </div>
+                    <h5>Soporte 24/7</h5>
+                    <p class="text-muted small">Atención personalizada</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

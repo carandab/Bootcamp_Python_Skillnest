@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %}GoWest | Eliminar Producto{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header-->
+<section class="bg-light py-4">
+    <div class="container">
+        <h1 class="h3 mb-2">
+            <i class="fas fa-trash text-danger"></i> Confirmar Eliminación
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'products:lista_productos' %}">Productos</a></li>
+                <li class="breadcrumb-item active">Eliminar</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Confirmacion -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                
+                <!-- Alerta de Confirmación -->
+                <div class="card border-danger shadow-sm">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-exclamation-triangle me-2"></i>¿Estás seguro?
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        <!-- Informacion del Producto -->
+                        <div class="text-center mb-4">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail mb-3" style="max-width: 200px;">
+                            {% else %}
+                                <img src="{% static 'images/placeholder.png' %}" alt="{{ product.name }}" class="img-thumbnail mb-3" style="max-width: 200px;">
+                            {% endif %}
+                            
+                            <h4 class="mb-2">{{ product.name }}</h4>
+                            
+                            <div class="d-flex justify-content-center gap-2 mb-2">
+                                {% if product.category %}
+                                    <span class="badge bg-light text-dark">{{ product.category.name }}</span>
+                                {% endif %}
+                                {% if product.brand %}
+                                    <span class="badge bg-light text-dark">{{ product.brand.name }}</span>
+                                {% endif %}
+                            </div>
+                            
+                            <p class="text-muted mb-1">Precio: <strong>{{ product.price|precio_clp }}</strong></p>
+                            <p class="text-muted">Stock: <strong>{{ product.stock }} unidades</strong></p>
+                        </div>
+                        
+                        <!-- Mensaje de Alerta -->
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Atención:</strong> Esta acción no se puede deshacer. El producto será eliminado permanentemente de la base de datos.
+                        </div>
+                        
+                        <!-- Formulario -->
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-danger btn-lg">
+                                    <i class="fas fa-trash me-2"></i>Sí, Eliminar Producto
+                                </button>
+                                <a href="{% url 'products:lista_productos' %}" class="btn btn-outline-secondary btn-lg">
+                                    <i class="fas fa-arrow-left me-2"></i>No, Volver Atrás
+                                </a>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

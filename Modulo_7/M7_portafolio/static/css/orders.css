@@ -1,0 +1,160 @@
+/* Orders CSS */
+
+/* Checkout Steps */
+.checkout-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.step.active .step-number {
+    background: #59ab6e;
+    color: white;
+}
+
+.step-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.step.active .step-label {
+    color: #59ab6e;
+    font-weight: 600;
+}
+
+.step-line {
+    width: 100px;
+    height: 2px;
+    background: #e9ecef;
+    margin: 0 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Order Items */
+.order-items {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.order-item {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 1rem;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.order-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Summary */
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.total-row {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #e9ecef;
+}
+
+/* Guarantees */
+.guarantees {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.guarantee-item {
+    text-align: center;
+}
+
+.guarantee-item i {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Order Detail */
+.badge-lg {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.order-icon {
+    text-align: center;
+}
+
+.order-product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Order List */
+.order-card {
+    transition: all 0.3s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.empty-orders {
+    padding: 4rem 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .checkout-steps {
+        flex-wrap: wrap;
+    }
+    
+    .step-line {
+        width: 50px;
+    }
+    
+    .sticky-top {
+        position: relative !important;
+        top: 0 !important;
+    }
+}

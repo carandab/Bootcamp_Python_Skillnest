@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Gestor de Productos{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center">
+
+    <h1><i class="bi bi-box-seam"></i> Gestor de Productos</h1>
+    <p class="lead">Sistema de administración de productos, categorías y etiquetas</p>
+    
+</div>
+
+<div class="row g-4 mb-4">
+
+    <!-- Card de Productos -->
+
+    <div class="col-md-4">
+
+        <div class="stat-card">
+
+            <i class="bi bi-box text-primary"></i>
+            <h3>{{ total_productos|default:0 }}</h3>
+            <p>Productos Registrados</p>
+            <a href="{% url 'lista_productos' %}" class="btn btn-primary mt-3">
+                <i class="bi bi-eye"></i> Ver Productos
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Card de Categorías -->
+
+    <div class="col-md-4">
+
+        <div class="stat-card">
+
+            <i class="bi bi-grid text-success"></i>
+            <h3>{{ total_categorias|default:0 }}</h3>
+            <p>Categorías Activas</p>
+            <a href="{% url 'lista_categorias' %}" class="btn btn-success mt-3">
+                <i class="bi bi-eye"></i> Ver Categorías
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Card de Etiquetas -->
+
+    <div class="col-md-4">
+
+        <div class="stat-card">
+            <i class="bi bi-tags text-info"></i>
+            <h3>{{ total_etiquetas|default:0 }}</h3>
+            <p>Etiquetas Disponibles</p>
+            <a href="{% url 'lista_etiquetas' %}" class="btn btn-info mt-3">
+                <i class="bi bi-eye"></i> Ver Etiquetas
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Sección de Acciones Rápidas -->
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-lightning"></i> Acciones Rápidas
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <a href="{% url 'crear_producto' %}" class="btn btn-primary w-100 btn-lg">
+                            <i class="bi bi-plus-circle"></i> Crear Producto
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{% url 'crear_categoria' %}" class="btn btn-success w-100 btn-lg">
+                            <i class="bi bi-plus-circle"></i> Crear Categoría
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{% url 'crear_etiqueta' %}" class="btn btn-info w-100 btn-lg">
+                            <i class="bi bi-plus-circle"></i> Crear Etiqueta
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

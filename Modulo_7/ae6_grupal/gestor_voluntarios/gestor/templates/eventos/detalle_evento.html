@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Detalle Evento{% endblock %}
+{% block content %}
+<h1>Detalle: {{ evento }}</h1>
+<ul class="list-group">
+  <li class="list-group-item"><strong>Titulo:</strong> {{ evento.titulo }}</li>
+  <li class="list-group-item"><strong>Descripcion:</strong> {{ evento.descripcion }}</li>
+  <li class="list-group-item"><strong>Fecha:</strong> {{ evento.fecha }}</li>
+</ul>
+<div class="mt-3">
+  <a class="btn btn-warning" href="{% url 'gestor:actualizar_evento' evento.id %}">Editar</a>
+  <a class="btn btn-secondary" href="{% url 'gestor:lista_eventos' %}">Volver</a>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %} GoWest | Finalizar Compra {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <h1 class="h3 mb-2">
+            <i class="fas fa-shopping-cart"></i> Finalizar Compra
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'products:cart_view' %}">Carrito</a></li>
+                <li class="breadcrumb-item active">Checkout</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Contenido Principal -->
+<section class="py-5">
+    <div class="container">
+        
+        <!-- Proceso de Compra -->
+        <div class="checkout-steps mb-4">
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div class="step-label">Información</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-label">Confirmación</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-label">Completado</div>
+            </div>
+        </div>
+        
+        <div class="row">
+            
+            <!-- Formulario -->
+            <div class="col-lg-7 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-truck text-success me-2"></i>
+                            Información de Envío
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <!-- Información del Usuario -->
+                            <div class="mb-4">
+                                <h6 class="text-muted mb-3">Datos del Cliente</h6>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-user me-2"></i>
+                                    <strong>{{ user.get_full_name|default:user.username }}</strong>
+                                    <br>
+                                    <small>{{ user.email }}</small>
+                                </div>
+                            </div>
+                            
+                            <!-- Dirección de Envío -->
+                            <div class="mb-3">
+                                <label for="shipping_address" class="form-label">
+                                    <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                    Dirección de Envío *
+                                </label>
+                                <textarea 
+                                    name="shipping_address" 
+                                    id="shipping_address" 
+                                    class="form-control" 
+                                    rows="3" 
+                                    required
+                                    placeholder="Calle, número, comuna, ciudad">{% if user_profile %}{{ user_profile.address }}{% endif %}</textarea>
+                                <small class="form-text text-muted">
+                                    Ingresa la dirección completa donde recibirás tu pedido
+                                </small>
+                            </div>
+                            
+                            <!-- Dirección de Facturación -->
+                            <div class="mb-3">
+                                <label for="billing_address" class="form-label">
+                                    <i class="fas fa-file-invoice text-success me-2"></i>
+                                    Dirección de Facturación
+                                    <span class="text-muted small">(opcional)</span>
+                                </label>
+                                <textarea 
+                                    name="billing_address" 
+                                    id="billing_address" 
+                                    class="form-control" 
+                                    rows="3"
+                                    placeholder="Dejar vacío si es igual a la dirección de envío"></textarea>
+                                <small class="form-text text-muted">
+                                    Si está vacío, se usará la dirección de envío
+                                </small>
+                            </div>
+                            
+                            <!-- Notas del Pedido -->
+                            <div class="mb-4">
+                                <label for="notes" class="form-label">
+                                    <i class="fas fa-sticky-note text-success me-2"></i>
+                                    Notas del Pedido
+                                    <span class="text-muted small">(opcional)</span>
+                                </label>
+                                <textarea 
+                                    name="notes" 
+                                    id="notes" 
+                                    class="form-control" 
+                                    rows="2"
+                                    placeholder="Instrucciones especiales de entrega, horarios preferidos, etc."></textarea>
+                            </div>
+                            
+                            <!-- Botones -->
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-success btn-lg flex-fill">
+                                    <i class="fas fa-check me-2"></i>Confirmar Pedido
+                                </button>
+                                <a href="{% url 'products:cart_view' %}" class="btn btn-outline-secondary btn-lg">
+                                    <i class="fas fa-arrow-left"></i>
+                                </a>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resumen del Pedido -->
+            <div class="col-lg-5">
+                <div class="card shadow-sm sticky-top" style="top: 100px;">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-clipboard-list me-2"></i>Resumen del Pedido
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        <!-- Items -->
+                        <div class="order-items mb-3">
+                            {% for item in cart_items %}
+                            <div class="order-item">
+                                <div class="d-flex align-items-center mb-2">
+                                    <img 
+                                        src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}" 
+                                        alt="{{ item.product.name }}" 
+                                        class="order-item-image me-2">
+                                    <div class="flex-fill">
+                                        <div class="fw-bold small">{{ item.product.name }}</div>
+                                        <small class="text-muted">Cantidad: {{ item.quantity }}</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold text-success">{{ item.subtotal|precio_clp }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <hr>
+                        
+                        <!-- Totales -->
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span class="fw-bold">{{ total|precio_clp }}</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Envío:</span>
+                            <span class="text-success fw-bold">Gratis</span>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="summary-row total-row">
+                            <span class="fw-bold">Total:</span>
+                            <span class="fw-bold text-success fs-4">{{ total|precio_clp }}</span>
+                        </div>
+                        
+                        <!-- Garantías -->
+                        <div class="guarantees mt-4">
+                            <div class="guarantee-item">
+                                <i class="fas fa-shield-alt text-success"></i>
+                                <small>Compra 100% Segura</small>
+                            </div>
+                            <div class="guarantee-item">
+                                <i class="fas fa-truck text-success"></i>
+                                <small>Envío en 24-48hrs</small>
+                            </div>
+                            <div class="guarantee-item">
+                                <i class="fas fa-undo text-success"></i>
+                                <small>Devolución Gratis</small>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/checkout.js' %}"></script>
+{% endblock %}

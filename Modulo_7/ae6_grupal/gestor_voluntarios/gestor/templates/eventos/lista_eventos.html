@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Listado de Eventos{% endblock %}
+{% block content %}
+<h1>Listado de Eventos</h1>
+
+<a href="{% url 'gestor:crear_evento' %}" class="btn btn-primary mb-3">Agregar Evento</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título del Evento</th>
+      <th>Fecha</th>
+      <th>Voluntarios Asignados</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for evento in eventos %}
+    <tr>
+      <td>{{ evento.id }}</td>
+      <td>{{ evento.titulo }}</td>
+      <td>{{ evento.fecha }}</td>
+      <td>{{ evento.voluntarios.count }}</td>
+      <td>
+        <a class="btn btn-sm btn-info" href="{% url 'gestor:detalle_evento' evento.id %}">Ver</a>
+        <a class="btn btn-sm btn-warning" href="{% url 'gestor:actualizar_evento' evento.id %}">Editar</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'gestor:eliminar_evento' evento.id %}">Eliminar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No hay eventos registrados.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

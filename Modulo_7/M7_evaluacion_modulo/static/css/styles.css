@@ -1,0 +1,474 @@
+/* Variables de colores */
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --success-color: #27ae60;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --info-color: #16a085;
+    --light-bg: #f8f9fa;
+    --dark-text: #2c3e50;
+}
+
+/* Estilos generales */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--dark-text);
+}
+
+/* Navbar */
+
+.navbar {
+    background-color: var(--primary-color) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white !important;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+.navbar-brand i {
+    margin-right: 10px;
+    color: var(--secondary-color);
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.85) !important;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    margin: 0 5px;
+    padding: 0.5rem 1rem !important;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    background-color: var(--secondary-color);
+    color: white !important;
+}
+
+/* Contenido principal */
+
+main {
+    flex: 1;
+    padding: 2rem 0;
+    background-color: var(--light-bg);
+}
+
+.page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--secondary-color);
+}
+
+.page-header h1 {
+    color: var(--primary-color);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.page-header h1 i {
+    color: var(--secondary-color);
+}
+
+/* Cards */
+
+.card {
+    border: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 30px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    border-bottom: 3px solid var(--secondary-color);
+    padding: 1rem 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+
+/* cards de bienvenida (index) */
+
+.welcome-card {
+    background: linear-gradient(135deg, var(--secondary-color), var(--info-color));
+    color: white;
+    border: none;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.welcome-card h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.feature-card {
+    height: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.feature-card .card-body {
+    text-align: center;
+    padding: 2rem;
+}
+
+.feature-card i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card.productos i { color: var(--secondary-color); }
+.feature-card.categorias i { color: var(--success-color); }
+.feature-card.etiquetas i { color: var(--warning-color); }
+
+.feature-card:hover {
+    text-decoration: none;
+}
+
+
+/* Botones */
+
+.btn {
+    border-radius: 5px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+}
+
+.btn-success:hover {
+    background-color: #229954;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+}
+
+.btn-warning:hover {
+    background-color: #d68910;
+    transform: translateY(-2px);
+}
+
+.btn-info {
+    background-color: var(--info-color);
+}
+
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+/* Formularios */
+
+.form-control, .form-select {
+    border-radius: 5px;
+    border: 2px solid #e0e0e0;
+    padding: 0.6rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+/* Tablas */
+
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.table thead th {
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f3f5;
+    transform: scale(1.01);
+}
+
+.table tbody td {
+    vertical-align: middle;
+    padding: 1rem;
+}
+
+
+/* Badges */
+
+.badge {
+    padding: 0.5em 0.8em;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.badge.bg-primary { background-color: var(--secondary-color) !important; }
+.badge.bg-success { background-color: var(--success-color) !important; }
+.badge.bg-warning { background-color: var(--warning-color) !important; }
+.badge.bg-danger { background-color: var(--danger-color) !important; }
+
+
+/* Alertas */
+
+.alert {
+    border-radius: 10px;
+    border: none;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.alert-dismissible .btn-close {
+    padding: 1rem 1.25rem;
+}
+
+
+/* Detalle de producto */
+
+.detail-item {
+    margin-bottom: 1rem;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+.detail-value {
+    color: #555;
+    font-size: 1.1rem;
+}
+
+
+/* Footer */
+
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem 0;
+    margin-top: auto;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: white;
+}
+
+
+/* Busqueda y filtros */
+
+.search-box {
+    position: relative;
+}
+
+.search-box input {
+    padding-right: 3rem;
+}
+
+.search-box .btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/* Empty state */
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6c757d;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    margin-bottom: 1rem;
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .table {
+        font-size: 0.875rem;
+    }
+    
+    .btn {
+        padding: 0.4rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Animation classes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Utility classes */
+.text-primary { color: var(--secondary-color) !important; }
+.text-success { color: var(--success-color) !important; }
+.text-danger { color: var(--danger-color) !important; }
+.text-warning { color: var(--warning-color) !important; }
+
+.bg-light-primary {
+    background-color: rgba(52, 152, 219, 0.1);
+}

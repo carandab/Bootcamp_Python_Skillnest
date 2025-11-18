@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Listado de Voluntarios{% endblock %}
+{% block content %}
+<h1>Listado de Voluntarios</h1>
+<a class="btn btn-primary mb-3" href="{% url 'gestor:crear_voluntario' %}">Agregar Voluntario</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>TelÃ©fono</th>
+      <th>Fecha de Registro</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for voluntario in voluntarios %}
+    <tr>
+      <td>{{ voluntario.id }}</td>
+      <td>{{ voluntario.nombre }}</td>
+      <td>{{ voluntario.email }}</td>
+      <td>{{ voluntario.telefono|default:"---" }}</td>
+      <td>{{ voluntario.fecha_registro|date:"d/m/Y H:i" }}</td>
+      <td>
+        <a class="btn btn-sm btn-info" href="{% url 'gestor:detalle_voluntario' voluntario.id %}">Ver</a>
+        <a class="btn btn-sm btn-warning" href="{% url 'gestor:voluntario_form' voluntario.id %}">Editar</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'gestor:voluntario_confirm_delete' voluntario.id %}">Eliminar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="6">No hay voluntarios registrados.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

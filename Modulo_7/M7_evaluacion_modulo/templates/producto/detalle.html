@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ producto.nombre }} - Detalle{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+
+    <div class="col-md-10">
+
+        <!-- Encabezado con acciones -->
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h2><i class="bi bi-box-seam"></i> Detalle del Producto</h2>
+            <div>
+                <a href="{% url 'lista_productos' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+                <a href="{% url 'editar_producto' producto.id %}" class="btn btn-warning">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+                <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Eliminar
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Card principal del producto -->
+
+        <div class="card product-detail-card mb-4">
+
+            <div class="card-body">
+
+                <!-- Nombre y precio destacado -->
+                <div class="text-center mb-4 pb-4 border-bottom">
+                    <h1 class="display-5 mb-3">{{ producto.nombre }}</h1>
+                    <h2 class="text-primary">
+                        <i class="bi bi-currency-dollar"></i> ${{ producto.precio }}
+                    </h2>
+                </div>
+
+                <!-- Información básica -->
+                <div class="detail-row">
+                    <span class="detail-label">
+                        <i class="bi bi-hash"></i> ID:
+                    </span>
+                    <span>#{{ producto.id }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">
+                        <i class="bi bi-text-paragraph"></i> Descripción:
+                    </span>
+                    <span>{{ producto.descripcion }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">
+                        <i class="bi bi-grid"></i> Categoría:
+                    </span>
+                    {% if producto.categoria %}
+                        <span class="badge bg-success fs-6">{{ producto.categoria.nombre }}</span>
+                    {% else %}
+                        <span class="badge bg-secondary fs-6">Sin categoría</span>
+                    {% endif %}
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">
+                        <i class="bi bi-tags"></i> Etiquetas:
+                    </span>
+                    <div class="product-tags d-inline-flex">
+                        {% for etiqueta in producto.etiquetas.all %}
+                            <span class="badge bg-info fs-6">{{ etiqueta.nombre }}</span>
+                        {% empty %}
+                            <span class="text-muted">Sin etiquetas</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Detalles adicionales -->
+                {% if producto.detalles %}
+                    <div class="detail-row">
+                        <span class="detail-label">
+                            <i class="bi bi-box"></i> Peso:
+                        </span>
+                        <span>
+                            {% if producto.detalles.peso %}
+                                {{ producto.detalles.peso }} kg
+                            {% else %}
+                                <span class="text-muted">No especificado</span>
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">
+                            <i class="bi bi-rulers"></i> Dimensiones:
+                        </span>
+                        <span>
+                            {% if producto.detalles.dimensiones %}
+                                {{ producto.detalles.dimensiones }}
+                            {% else %}
+                                <span class="text-muted">No especificado</span>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
+
+                <!-- Fechas de auditoría -->
+                <div class="detail-row">
+                    <span class="detail-label">
+                        <i class="bi bi-calendar-plus"></i> Creado:
+                    </span>
+                    <span>{{ producto.created_at|date:"d/m/Y H:i" }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">
+                        <i class="bi bi-calendar-check"></i> Actualizado:
+                    </span>
+                    <span>{{ producto.updated_at|date:"d/m/Y H:i" }}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Información adicional en cards -->
+        <div class="row g-3">
+
+            <!-- Card de categoría -->
+
+            <div class="col-md-4">
+
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-grid text-success" style="font-size: 2rem;"></i>
+                        <h5 class="mt-3">Categoría</h5>
+                        {% if producto.categoria %}
+                            <p class="mb-0">{{ producto.categoria.nombre }}</p>
+                            {% if producto.categoria.descripcion %}
+                                <small class="text-muted">{{ producto.categoria.descripcion|truncatewords:15 }}</small>
+                            {% endif %}
+                        {% else %}
+                            <p class="text-muted mb-0">Sin categoría asignada</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Card de etiquetas -->
+            <div class="col-md-4">
+
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-tags text-info" style="font-size: 2rem;"></i>
+                        <h5 class="mt-3">Etiquetas</h5>
+                        <p class="mb-2">{{ producto.etiquetas.count }} etiqueta(s)</p>
+                        <div class="product-tags justify-content-center">
+                            {% for etiqueta in producto.etiquetas.all %}
+                                <span class="badge bg-info">{{ etiqueta.nombre }}</span>
+                            {% empty %}
+                                <small class="text-muted">Sin etiquetas</small>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Card de detalles -->
+            <div class="col-md-4">
+
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-rulers text-warning" style="font-size: 2rem;"></i>
+                        <h5 class="mt-3">Detalles</h5>
+                        {% if producto.detalles %}
+                            {% if producto.detalles.peso %}
+                                <p class="mb-1"><strong>Peso:</strong> {{ producto.detalles.peso }} kg</p>
+                            {% endif %}
+                            {% if producto.detalles.dimensiones %}
+                                <p class="mb-0"><strong>Dimensiones:</strong> {{ producto.detalles.dimensiones }}</p>
+                            {% endif %}
+                            {% if not producto.detalles.peso and not producto.detalles.dimensiones %}
+                                <p class="text-muted mb-0">Sin detalles</p>
+                            {% endif %}
+                        {% else %}
+                            <p class="text-muted mb-0">Sin detalles adicionales</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
+{% endblock %}

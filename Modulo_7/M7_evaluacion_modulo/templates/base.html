@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gestor de Productos{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <i class="bi bi-box-seam"></i>
+                Gestor de Productos
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">
+                            <i class="bi bi-house-door"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'producto' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'lista_productos' %}">
+                            <i class="bi bi-box"></i> Productos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'categoria' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'lista_categorias' %}">
+                            <i class="bi bi-grid"></i> Categorías
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'etiqueta' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'lista_etiquetas' %}">
+                            <i class="bi bi-tags"></i> Etiquetas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/" target="_blank">
+                            <i class="bi bi-gear"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+
+    <main>
+
+        <div class="container">
+
+            <!-- Mensajes de Django -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {% if message.tags == 'success' %}
+                            <i class="bi bi-check-circle"></i>
+                        {% elif message.tags == 'error' %}
+                            <i class="bi bi-exclamation-triangle"></i>
+                        {% elif message.tags == 'warning' %}
+                            <i class="bi bi-exclamation-circle"></i>
+                        {% else %}
+                            <i class="bi bi-info-circle"></i>
+                        {% endif %}
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Contenido específico de cada página -->
+            {% block content %}{% endblock %}
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="mb-0">
+                        &copy; 2025 Gestor de Productos |   <a href="https://github.com/carandab" target="_blank" class="text-light"><i class="bi bi-github"></i> carandab </a> | 
+                        Evaluación Módulo 7 - Bootcamp Desarrollo Full Stack Python |
+                        Ejecutado por Skillnest para Talento Digital
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{% static 'js/script.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

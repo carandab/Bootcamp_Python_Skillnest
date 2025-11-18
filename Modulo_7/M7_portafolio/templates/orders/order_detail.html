@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %} GoWest | Pedido #{{ order.id }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <h1 class="h3 mb-2">
+            <i class="fas fa-box"></i> Pedido #{{ order.id }}
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'orders:lista_pedidos' %}">Mis Pedidos</a></li>
+                <li class="breadcrumb-item active">Pedido #{{ order.id }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Contenido Principal -->
+<section class="py-5">
+    <div class="container">
+        
+        <!-- Mensaje de Confirmación -->
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <strong>¡Pedido realizado con éxito!</strong> 
+            Te enviaremos un correo con los detalles de tu compra.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <div class="row">
+            
+            <!-- Información del Pedido -->
+            <div class="col-lg-8 mb-4">
+                
+                <!-- Estado del Pedido -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="mb-2">Estado del Pedido</h5>
+                                <span class="badge bg-{% if order.status == 'Pending' %}warning{% elif order.status == 'Processing' %}info{% elif order.status == 'Shipped' %}primary{% elif order.status == 'Delivered' %}success{% else %}danger{% endif %} badge-lg">
+                                    {{ order.get_status_display }}
+                                </span>
+                                <p class="text-muted small mt-2 mb-0">
+                                    Pedido realizado el {{ order.created_at|date:"d/m/Y H:i" }}
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <div class="order-icon">
+                                    <i class="fas fa-box-open fa-3x text-success"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Productos -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-shopping-bag text-success me-2"></i>
+                            Productos ({{ order_items.count }})
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-borderless mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th class="text-center">Cantidad</th>
+                                        <th class="text-end">Precio Unit.</th>
+                                        <th class="text-end">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in order_items %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img 
+                                                    src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}" 
+                                                    alt="{{ item.product.name }}"
+                                                    class="order-product-image me-3">
+                                                <div>
+                                                    <div class="fw-bold">{{ item.product.name }}</div>
+                                                    {% if item.product.category %}
+                                                        <small class="text-muted">{{ item.product.category.name }}</small>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <span class="badge bg-light text-dark">{{ item.quantity }}</span>
+                                        </td>
+                                        <td class="text-end align-middle">{{ item.unit_price|precio_clp }}</td>
+                                        <td class="text-end align-middle fw-bold text-success">{{ item.subtotal|precio_clp }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot class="table-light">
+                                    <tr>
+                                        <td colspan="3" class="text-end fw-bold">Total:</td>
+                                        <td class="text-end fw-bold text-success fs-5">{{ order.total|precio_clp }}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Direcciones -->
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h6 class="mb-3">
+                                    <i class="fas fa-truck text-success me-2"></i>
+                                    Dirección de Envío
+                                </h6>
+                                <p class="mb-0">{{ order.shipping_address|linebreaks }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h6 class="mb-3">
+                                    <i class="fas fa-file-invoice text-success me-2"></i>
+                                    Dirección de Facturación
+                                </h6>
+                                <p class="mb-0">{{ order.billing_address|linebreaks }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notas -->
+                {% if order.notes %}
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="mb-3">
+                            <i class="fas fa-sticky-note text-success me-2"></i>
+                            Notas del Pedido
+                        </h6>
+                        <p class="mb-0 text-muted">{{ order.notes|linebreaks }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                
+            </div>
+            
+            <!-- Sidebar de Acciones -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm sticky-top" style="top: 100px;">
+                    <div class="card-body">
+                        <h6 class="mb-3">Acciones</h6>
+                        
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'orders:lista_pedidos' %}" class="btn btn-outline-success">
+                                <i class="fas fa-list me-2"></i>Ver Todos mis Pedidos
+                            </a>
+                            <a href="{% url 'products:lista_productos' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-shopping-bag me-2"></i>Seguir Comprando
+                            </a>
+                        </div>
+                        
+                        <hr>
+                        
+                        <!-- Contacto -->
+                        <div class="contact-info">
+                            <h6 class="mb-3">¿Necesitas Ayuda?</h6>
+                            <div class="mb-2">
+                                <i class="fas fa-phone text-success me-2"></i>
+                                <small>+56 9 1234 5678</small>
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-envelope text-success me-2"></i>
+                                <small>info@petshop.cl</small>
+                            </div>
+                            <div>
+                                <i class="fas fa-clock text-success me-2"></i>
+                                <small>Lun-Vie 9:00-18:00</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+{% endblock %}

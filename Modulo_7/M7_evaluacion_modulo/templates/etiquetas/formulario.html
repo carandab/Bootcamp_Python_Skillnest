@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ accion }} Etiqueta{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-{% if accion == 'Crear' %}plus-circle{% else %}pencil{% endif %}"></i> 
+                {{ accion }} Etiqueta
+                {% if etiqueta %}
+                    : <strong>{{ etiqueta.nombre }}</strong>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <form method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.nombre.id_for_label }}" class="form-label">
+                            <i class="bi bi-tag"></i> Nombre de la Etiqueta *
+                        </label>
+                        {{ form.nombre }}
+                        {% if form.nombre.errors %}
+                            <div class="text-danger">
+                                {{ form.nombre.errors }}
+                            </div>
+                        {% endif %}
+                        <small class="form-text text-muted">
+                            El nombre debe ser único y no mayor a 50 caracteres
+                        </small>
+                    </div>
+
+                    <!-- Vista previa de la etiqueta -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-eye"></i> Vista Previa
+                        </label>
+                        <div>
+                            <span class="badge bg-info fs-5" id="etiqueta-preview">
+                                {% if etiqueta %}{{ etiqueta.nombre }}{% else %}Nombre de etiqueta{% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Información adicional al editar -->
+                    {% if etiqueta %}
+                        <div class="alert alert-info">
+                            <small>
+                                <i class="bi bi-box"></i>
+                                Esta etiqueta está asignada a <strong>{{ etiqueta.productos.count }} producto(s)</strong>
+                            </small>
+                        </div>
+
+                        {% if etiqueta.productos.all %}
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    <i class="bi bi-list"></i> Productos con esta etiqueta:
+                                </label>
+                                <ul class="list-group">
+                                    {% for producto in etiqueta.productos.all|slice:":5" %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            {{ producto.nombre }}
+                                            <span class="badge bg-primary">${{ producto.precio }}</span>
+                                        </li>
+                                    {% endfor %}
+                                    {% if etiqueta.productos.count > 5 %}
+                                        <li class="list-group-item text-muted">
+                                            <em>... y {{ etiqueta.productos.count|add:"-5" }} más</em>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'lista_etiquetas' %}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-{% if accion == 'Crear' %}info{% else %}warning{% endif %}">
+                            <i class="bi bi-save"></i> {{ accion }} Etiqueta
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Ayuda -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6><i class="bi bi-lightbulb"></i> Ayuda</h6>
+                <ul class="mb-0">
+                    <li>El nombre de la etiqueta debe ser único</li>
+                    <li>Máximo 50 caracteres</li>
+                    <li>Usa nombres cortos y descriptivos (ej: "Nuevo", "Oferta", "Popular")</li>
+                    {% if accion == 'Editar' %}
+                        <li>Los cambios afectarán todos los productos con esta etiqueta</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Actualizar vista previa en tiempo real
+document.addEventListener('DOMContentLoaded', function() {
+    const nombreInput = document.getElementById('{{ form.nombre.id_for_label }}');
+    const preview = document.getElementById('etiqueta-preview');
+    
+    if (nombreInput && preview) {
+        nombreInput.addEventListener('input', function() {
+            preview.textContent = this.value || 'Nombre de etiqueta';
+        });
+    }
+});
+</script>
+{% endblock %}

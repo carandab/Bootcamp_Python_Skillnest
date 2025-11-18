@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} GoWest |  Iniciar Sesión{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <h1 class="h3 mb-2">
+            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item active">Iniciar Sesión</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Contenido Principal -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7">
+                
+                <!-- Card de Login -->
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        
+                        <!-- Logo/Icono -->
+                        <div class="text-center mb-4">
+                            <div class="login-icon mb-3">
+                                <i class="fas fa-paw fa-3x text-success"></i>
+                            </div>
+                            <h4 class="mb-2">¡Bienvenido de vuelta!</h4>
+                            <p class="text-muted">Inicia sesión para continuar</p>
+                        </div>
+                        
+                        <!-- Formulario -->
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">
+                                    <i class="fas fa-user text-success me-2"></i>Usuario
+                                </label>
+                                <input 
+                                    type="text" 
+                                    name="username" 
+                                    class="form-control form-control-lg" 
+                                    id="id_username" 
+                                    placeholder="Ingresa tu usuario"
+                                    required
+                                    autofocus>
+                            </div>
+                            
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="id_password" class="form-label">
+                                    <i class="fas fa-lock text-success me-2"></i>Contraseña
+                                </label>
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    class="form-control form-control-lg" 
+                                    id="id_password" 
+                                    placeholder="Ingresa tu contraseña"
+                                    required>
+                            </div>
+                            
+                            <!-- Remember Me (Escalar a Futuro) -->
+                            <!-- <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember">
+                                <label class="form-check-label" for="remember">
+                                    Recordarme
+                                </label>
+                            </div> -->
+                            
+                            <!-- Mensajes de Error -->
+                            {% if form.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                Usuario o contraseña incorrectos
+                            </div>
+                            {% endif %}
+                            
+                            <!-- Boton Submit -->
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                                </button>
+                            </div>
+                            
+                            <!-- Forgot Password (Escalar a Futuro) -->
+                            <!-- <div class="text-center">
+                                <a href="#" class="text-muted small">¿Olvidaste tu contraseña?</a>
+                            </div> -->
+                            
+                        </form>
+                        
+                    </div>
+                </div>
+                
+                <!-- Registro -->
+                <div class="text-center mt-4">
+                    <p class="text-muted">
+                        ¿No tienes cuenta? 
+                        <a href="{% url 'users:registro' %}" class="text-success fw-bold">Regístrate aquí</a>
+                    </p>
+                </div>
+                
+                <!-- Volver a Inicio -->
+                <div class="text-center mt-2">
+                    <a href="{% url 'products:index' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-home me-2"></i>Volver al Inicio
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/forms.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %} GoWest | Mis Pedidos{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <h1 class="h3 mb-2">
+            <i class="fas fa-box"></i> Mis Pedidos
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item active">Mis Pedidos</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Contenido Principal -->
+<section class="py-5">
+    <div class="container">
+        
+        {% if orders %}
+        <div class="row">
+            {% for order in orders %}
+            <div class="col-12 mb-4">
+                <div class="card order-card shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            
+                            <!-- Información del Pedido -->
+                            <div class="col-lg-8">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="mb-1">Pedido #{{ order.id }}</h5>
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar me-1"></i>
+                                            {{ order.created_at|date:"d/m/Y H:i" }}
+                                        </small>
+                                    </div>
+                                    <span class="badge bg-{% if order.status == 'Pending' %}warning{% elif order.status == 'Processing' %}info{% elif order.status == 'Shipped' %}primary{% elif order.status == 'Delivered' %}success{% else %}danger{% endif %}">
+                                        {{ order.get_status_display }}
+                                    </span>
+                                </div>
+                                
+                                <div class="order-summary">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <div class="summary-item">
+                                                <i class="fas fa-shopping-bag text-success me-2"></i>
+                                                <span class="text-muted">Items:</span>
+                                                <strong>{{ order.items.count }}</strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="summary-item">
+                                                <i class="fas fa-dollar-sign text-success me-2"></i>
+                                                <span class="text-muted">Total:</span>
+                                                <strong class="text-success">${{ order.total|precio_clp }}</strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="summary-item">
+                                                <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                                <span class="text-muted">Envío:</span>
+                                                <strong>Gratis</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Acciones -->
+                            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                                <a href="{% url 'orders:detalle_pedido' order.pk %}" class="btn btn-success">
+                                    <i class="fas fa-eye me-2"></i>Ver Detalle
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% else %}
+        <!-- Sin Pedidos -->
+        <div class="empty-orders text-center py-5">
+            <i class="fas fa-box-open fa-5x text-muted mb-4"></i>
+            <h3 class="mb-3">No tienes pedidos todavía</h3>
+            <p class="text-muted mb-4">Cuando realices una compra, aparecerá aquí.</p>
+            <a href="{% url 'products:lista_productos' %}" class="btn btn-success btn-lg">
+                <i class="fas fa-shopping-bag me-2"></i>Ir a la Tienda
+            </a>
+        </div>
+        {% endif %}
+        
+    </div>
+</section>
+
+{% endblock %}

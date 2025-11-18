@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Productos{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2><i class="bi bi-box"></i> Lista de Productos</h2>
+    <a href="{% url 'crear_producto' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Crear Producto
+    </a>
+
+</div>
+
+<!-- Sección de filtros -->
+
+<div class="filter-section mb-4"
+>
+    <h5><i class="bi bi-funnel"></i> Filtros de Búsqueda</h5>
+    <form method="GET" action="{% url 'lista_productos' %}">
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <label for="q" class="form-label">Buscar por nombre</label>
+                <input type="text" class="form-control" id="q" name="q" 
+                       placeholder="Nombre o descripción..." value="{{ request.GET.q }}">
+            </div>
+
+            <div class="col-md-3">
+                <label for="categoria" class="form-label">Categoría</label>
+                <select class="form-select" id="categoria" name="categoria">
+                    <option value="">Todas las categorías</option>
+                    {% for cat in categorias %}
+                        <option value="{{ cat.id }}" {% if request.GET.categoria == cat.id|stringformat:"s" %}selected{% endif %}>
+                            {{ cat.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="precio_min" class="form-label">Precio mínimo</label>
+                <input type="number" class="form-control" id="precio_min" name="precio_min" 
+                       placeholder="0.00" step="0.01" value="{{ request.GET.precio_min }}">
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-secondary w-100">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- Tabla de productos -->
+
+<div class="card">
+
+    <div class="card-header">
+        <i class="bi bi-list-ul"></i> Productos Registrados
+        <span class="badge bg-primary float-end">{{ productos.count }} producto(s)</span>
+    </div>
+
+    <div class="card-body">
+        {% if productos %}
+            <div class="table-responsive">
+
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Etiquetas</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for producto in productos %}
+                            <tr>
+                                <td><strong>#{{ producto.id }}</strong></td>
+                                <td>{{ producto.nombre }}</td>
+                                <td>{{ producto.descripcion|truncatewords:10 }}</td>
+                                <td><strong>${{ producto.precio }}</strong></td>
+                                <td>
+                                    {% if producto.categoria %}
+                                        <span class="badge bg-success">{{ producto.categoria.nombre }}</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Sin categoría</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="product-tags">
+                                        {% for etiqueta in producto.etiquetas.all %}
+                                            <span class="badge bg-info">{{ etiqueta.nombre }}</span>
+                                        {% empty %}
+                                            <small class="text-muted">Sin etiquetas</small>
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <a href="{% url 'detalle_producto' producto.id %}" 
+                                           class="btn btn-sm btn-info" 
+                                           data-bs-toggle="tooltip" 
+                                           title="Ver detalles">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="{% url 'editar_producto' producto.id %}" 
+                                           class="btn btn-sm btn-warning"
+                                           data-bs-toggle="tooltip" 
+                                           title="Editar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="{% url 'eliminar_producto' producto.id %}" 
+                                           class="btn btn-sm btn-danger"
+                                           data-bs-toggle="tooltip" 
+                                           title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+        {% else %}
+            <div class="empty-state">
+
+                <i class="bi bi-inbox"></i>
+                <h4>No hay productos registrados</h4>
+                <p>Comienza agregando tu primer producto</p>
+                <a href="{% url 'crear_producto' %}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Crear Primer Producto
+                </a>
+
+            </div>
+
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar {{ producto.nombre }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-pencil"></i> Editar Producto: <strong>{{ producto.nombre }}</strong>
+            </div>
+            <div class="card-body">
+                <form method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Información básica del producto -->
+                    <h5 class="mb-3 text-primary">
+                        <i class="bi bi-info-circle"></i> Información Básica
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label for="{{ producto_form.nombre.id_for_label }}" class="form-label">
+                            Nombre del Producto *
+                        </label>
+                        {{ producto_form.nombre }}
+                        {% if producto_form.nombre.errors %}
+                            <div class="text-danger">
+                                {{ producto_form.nombre.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ producto_form.descripcion.id_for_label }}" class="form-label">
+                            Descripción *
+                        </label>
+                        {{ producto_form.descripcion }}
+                        {% if producto_form.descripcion.errors %}
+                            <div class="text-danger">
+                                {{ producto_form.descripcion.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ producto_form.precio.id_for_label }}" class="form-label">
+                                Precio *
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                {{ producto_form.precio }}
+                            </div>
+                            {% if producto_form.precio.errors %}
+                                <div class="text-danger">
+                                    {{ producto_form.precio.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ producto_form.categoria.id_for_label }}" class="form-label">
+                                Categoría *
+                            </label>
+                            {{ producto_form.categoria }}
+                            {% if producto_form.categoria.errors %}
+                                <div class="text-danger">
+                                    {{ producto_form.categoria.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Etiquetas con formset -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-tags"></i> Etiquetas
+                        </label>
+                        
+                        {% if etiquetas_formset %}
+                            {{ etiquetas_formset.management_form }}
+                            <div id="etiquetas-formset">
+                                {% for form in etiquetas_formset %}
+                                    <div class="row mb-2 etiqueta-form">
+                                        <div class="col-md-8">
+                                            {{ form.etiqueta }}
+                                            {% if form.etiqueta.errors %}
+                                                <div class="text-danger">{{ form.etiqueta.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Orden</label>
+                                            {{ form.orden }}
+                                            {% if form.orden.errors %}
+                                                <div class="text-danger">{{ form.orden.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-1 d-flex align-items-end">
+                                            {% if form.instance.pk %}
+                                                {{ form.DELETE }}
+                                                <label for="{{ form.DELETE.id_for_label }}" class="form-label">
+                                                    <i class="bi bi-trash text-danger"></i>
+                                                </label>
+                                            {% endif %}
+                                        </div>
+                                        {{ form.id }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="checkbox-group">
+                                {{ producto_form.etiquetas_seleccionadas }}
+                            </div>
+                            {% if producto_form.etiquetas_seleccionadas.errors %}
+                                <div class="text-danger">
+                                    {{ producto_form.etiquetas_seleccionadas.errors }}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Detalles del producto -->
+                    <h5 class="mb-3 text-primary">
+                        <i class="bi bi-rulers"></i> Detalles del Producto
+                    </h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ detalles_form.peso.id_for_label }}" class="form-label">
+                                Peso (kg)
+                            </label>
+                            {{ detalles_form.peso }}
+                            {% if detalles_form.peso.errors %}
+                                <div class="text-danger">
+                                    {{ detalles_form.peso.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ detalles_form.dimensiones.id_for_label }}" class="form-label">
+                                Dimensiones
+                            </label>
+                            {{ detalles_form.dimensiones }}
+                            {% if detalles_form.dimensiones.errors %}
+                                <div class="text-danger">
+                                    {{ detalles_form.dimensiones.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Información de auditoría -->
+                    <div class="alert alert-info">
+                        <small>
+                            <i class="bi bi-info-circle"></i>
+                            <strong>Creado:</strong> {{ producto.created_at|date:"d/m/Y H:i" }} | 
+                            <strong>Última actualización:</strong> {{ producto.updated_at|date:"d/m/Y H:i" }}
+                        </small>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a href="{% url 'lista_productos' %}" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
+                            <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-info">
+                                <i class="bi bi-eye"></i> Ver Detalle
+                            </a>
+                        </div>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-save"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Ayuda -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6><i class="bi bi-lightbulb"></i> Ayuda</h6>
+                <ul class="mb-0">
+                    <li>Los campos marcados con <strong>*</strong> son obligatorios</li>
+                    <li>Puedes modificar el orden de las etiquetas</li>
+                    <li>Marca la casilla de eliminación para quitar etiquetas</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

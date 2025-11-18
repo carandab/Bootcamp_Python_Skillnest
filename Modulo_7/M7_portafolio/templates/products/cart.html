@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %} GoWest | Carrito de Compras{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <h1 class="h3 mb-2">
+            <i class="fas fa-shopping-cart"></i> Carrito de Compras
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'products:lista_productos' %}">Productos</a></li>
+                <li class="breadcrumb-item active">Carrito</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Carrito -->
+<section class="py-5">
+    <div class="container">
+        
+        {% if cart_items %}
+        <div class="row">
+            <!-- Items en Carrito -->
+            <div class="col-lg-8 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-shopping-bag me-2 text-success"></i>
+                            Productos en tu Carrito ({{ cart_items|length }})
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        
+                        {% for item in cart_items %}
+                        <div class="cart-item">
+                            <div class="row align-items-center">
+                                
+                                <!-- Imagen del Producto -->
+                                <div class="col-md-2 col-3">
+                                    <div class="cart-item-image">
+                                        {% if item.product.image %}
+                                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid rounded">
+                                        {% else %}
+                                            <img src="{% static 'images/placeholder.png' %}" alt="{{ item.product.name }}" class="img-fluid rounded">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Informacion del Producto -->
+                                <div class="col-md-4 col-9">
+                                    <h6 class="mb-1">{{ item.product.name }}</h6>
+                                    {% if item.product.category %}
+                                        <small class="text-muted">{{ item.product.category.name }}</small>
+                                    {% endif %}
+                                    <div class="mt-2">
+                                        <span class="text-success fw-bold">{{ item.product.price|precio_clp }}</span>
+                                        <small class="text-muted">c/u</small>
+                                    </div>
+                                </div>
+                                
+                                <!-- Cantidad -->
+                                <div class="col-md-3 col-6 mt-3 mt-md-0">
+                                    <form method="POST" action="{% url 'products:update_cart' item.product.pk %}" class="quantity-form">
+                                        {% csrf_token %}
+                                        <div class="input-group input-group-sm">
+                                            <button class="btn btn-outline-secondary" type="button" onclick="decrementQuantity(this)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input type="number" name="quantity" class="form-control text-center" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}">
+                                            <button class="btn btn-outline-secondary" type="button" onclick="incrementQuantity(this, {{ item.product.stock }})">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <small class="text-muted d-block mt-1">Stock: {{ item.product.stock }}</small>
+                                    </form>
+                                </div>
+                                
+                                <!-- Subtotal & Sacar del carrito -->
+                                <div class="col-md-2 col-6 mt-3 mt-md-0 text-md-end">
+                                    <div class="fw-bold text-success mb-2">{{ item.subtotal|precio_clp }}</div>
+                                    <a href="{% url 'products:remove_from_cart' item.product.pk %}" class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+                
+                <!-- Continuar Comprando -->
+                <div class="mt-3">
+                    <a href="{% url 'products:lista_productos' %}" class="btn btn-outline-success">
+                        <i class="fas fa-arrow-left me-2"></i>Seguir Comprando
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Resumen de la orden -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm sticky-top" style="top: 100px;">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-calculator me-2"></i>Resumen del Pedido
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        <!-- Detalles del Resumen -->
+                        <div class="summary-row">
+                            <span>Subtotal ({{ cart_items|length }} productos):</span>
+                            <span class="fw-bold">{{ total }}</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Envío:</span>
+                            <span class="text-success">Gratis</span>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="summary-row total-row">
+                            <span class="fw-bold">Total:</span>
+                            <span class="fw-bold text-success fs-4">{{ total|precio_clp }}</span>
+                        </div>
+                        
+                        <!-- Boton de Checkout -->
+                        <div class="d-grid gap-2 mt-4">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'orders:checkout' %}" class="btn btn-success btn-lg">
+                                    <i class="fas fa-lock me-2"></i>Proceder al Checkout
+                                </a>
+                            {% else %}
+                                <a href="{% url 'users:login' %}?next={% url 'orders:checkout' %}" class="btn btn-success btn-lg">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión para Comprar
+                                </a>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Badges de confiabilidad -->
+                        <div class="trust-badges mt-4">
+                            <div class="trust-badge">
+                                <i class="fas fa-shield-alt text-success"></i>
+                                <small>Compra Segura</small>
+                            </div>
+                            <div class="trust-badge">
+                                <i class="fas fa-truck text-success"></i>
+                                <small>Envío Rápido</small>
+                            </div>
+                            <div class="trust-badge">
+                                <i class="fas fa-undo text-success"></i>
+                                <small>Devoluciones</small>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% else %}
+        <!-- Carrito Vacio -->
+        <div class="empty-cart text-center py-5">
+            <i class="fas fa-shopping-cart fa-5x text-muted mb-4"></i>
+            <h3 class="mb-3">Tu carrito está vacío</h3>
+            <p class="text-muted mb-4">¡Agrega productos para comenzar a comprar!</p>
+            <a href="{% url 'products:lista_productos' %}" class="btn btn-success btn-lg">
+                <i class="fas fa-shopping-bag me-2"></i>Ver Productos
+            </a>
+        </div>
+        {% endif %}
+        
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

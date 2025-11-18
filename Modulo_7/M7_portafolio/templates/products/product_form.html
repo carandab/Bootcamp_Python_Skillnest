@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} GoWest | {% if product %}Editar{% else %}Crear{% endif %} Producto{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <h1 class="h3 mb-2">
+            {% if product %}
+                <i class="fas fa-edit"></i> Editar Producto
+            {% else %}
+                <i class="fas fa-plus"></i> Crear Nuevo Producto
+            {% endif %}
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'products:lista_productos' %}">Productos</a></li>
+                <li class="breadcrumb-item active">{% if product %}Editar{% else %}Crear{% endif %}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Formulario -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            <!-- Nombre -->
+                            <div class="mb-3">
+                                <label for="{{ form.name.id_for_label }}" class="form-label">
+                                    <i class="fas fa-tag text-success me-2"></i>Nombre del Producto *
+                                </label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.name.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Descripcion -->
+                            <div class="mb-3">
+                                <label for="{{ form.description.id_for_label }}" class="form-label">
+                                    <i class="fas fa-align-left text-success me-2"></i>Descripción *
+                                </label>
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.description.errors }}
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-muted">Describe las características del producto</small>
+                            </div>
+                            
+                            <!-- Precio y Stock -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.price.id_for_label }}" class="form-label">
+                                        <i class="fas fa-dollar-sign text-success me-2"></i>Precio *
+                                    </label>
+                                    {{ form.price }}
+                                    {% if form.price.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.price.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.stock.id_for_label }}" class="form-label">
+                                        <i class="fas fa-boxes text-success me-2"></i>Stock *
+                                    </label>
+                                    {{ form.stock }}
+                                    {% if form.stock.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.stock.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <!-- Imagen -->
+                            <div class="mb-3">
+                                <label for="{{ form.image.id_for_label }}" class="form-label">
+                                    <i class="fas fa-image text-success me-2"></i>Imagen del Producto
+                                </label>
+                                
+                                {% if product.image %}
+                                <div class="mb-2">
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail" style="max-width: 200px;">
+                                    <p class="small text-muted mt-1">Imagen actual</p>
+                                </div>
+                                {% endif %}
+                                
+                                {{ form.image }}
+                                {% if form.image.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.image.errors }}
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-muted">Formatos: JPG, PNG. Máximo 5MB</small>
+                            </div>
+                            
+                            <!-- Is Active -->
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    {{ form.is_active }}
+                                    <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                        <i class="fas fa-eye text-success me-2"></i>Producto activo (visible en la tienda)
+                                    </label>
+                                </div>
+                                {% if form.is_active.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.is_active.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Acciones del Formulario -->
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save me-2"></i>
+                                    {% if product %}Actualizar{% else %}Crear{% endif %} Producto
+                                </button>
+                                <a href="{% url 'products:lista_productos' %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-times me-2"></i>Cancelar
+                                </a>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/forms.js' %}"></script>
+{% endblock %}

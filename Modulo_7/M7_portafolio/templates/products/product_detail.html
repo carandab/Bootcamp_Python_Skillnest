@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %} GoWest | {{ product.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'products:lista_productos' %}">Productos</a></li>
+                {% if product.category %}
+                    <li class="breadcrumb-item"><a href="{% url 'products:lista_productos' %}">{{ product.category.name }}</a></li>
+                {% endif %}
+                <li class="breadcrumb-item active">{{ product.name }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Detalle del Producto -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            
+            <!-- Imagen del Producto -->
+            <div class="col-lg-6 mb-4">
+                <div class="product-detail-image">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow-sm">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.png' %}" alt="{{ product.name }}" class="img-fluid rounded shadow-sm">
+                    {% endif %}
+                    
+                    <!-- Badge -->
+                    {% if product.sale_price %}
+                        <span class="product-badge-detail bg-danger">
+                            ¡Oferta!
+                        </span>
+                    {% elif product.is_featured %}
+                        <span class="product-badge-detail bg-success">
+                            Destacado
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Información del Producto -->
+            <div class="col-lg-6">
+                <div class="product-detail-info">
+                    
+                    <!-- Categoría y Marca -->
+                    <div class="mb-3">
+                        {% if product.category %}
+                            <span class="badge bg-light text-dark me-2">
+                                <i class="fas fa-tag me-1"></i>{{ product.category.name }}
+                            </span>
+                        {% endif %}
+                        {% if product.brand %}
+                            <span class="badge bg-light text-dark">
+                                <i class="fas fa-certificate me-1"></i>{{ product.brand.name }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Nombre -->
+                    <h1 class="product-detail-title mb-3">{{ product.name }}</h1>
+                    
+                    <!-- SKU -->
+                    {% if product.sku %}
+                    <p class="text-muted small mb-3">
+                        <strong>SKU:</strong> {{ product.sku }}
+                    </p>
+                    {% endif %}
+                    
+                    <!-- Precio -->
+                    <div class="product-detail-price mb-4">
+                        {% if product.sale_price %}
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="original-price">{{ product.price|precio_clp }}</span>
+                                <span class="sale-price">{{ product.sale_price|precio_clp }}</span>
+                                <span class="badge bg-danger">
+                                    -{{ product.price|calcular_descuento:product.sale_price }}%
+                                </span>
+                            </div>
+                            <small class="text-muted">Ahorra {{ ahorro|precio_clp }}</small>
+                        {% else %}
+                            <span class="current-price">{{ product.price|precio_clp }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Stock -->
+                    <div class="stock-info-detail mb-3">
+                        <div class="stock-display">
+                            {% if product.stock > 0 %}
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span class="fw-bold text-success">Disponible</span>
+                                <span class="text-muted">({{ product.stock }} en stock)</span>
+                            {% else %}
+                                <i class="fas fa-times-circle text-danger me-2"></i>
+                                <span class="fw-bold text-danger">Sin Stock</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="product-description mb-4">
+                        <h5 class="mb-3">Descripción</h5>
+                        <p>{{ product.description|linebreaks }}</p>
+                    </div>
+                    
+                    <!-- Selector de Cantidad y Agregar al Carrito -->
+                    {% if product.stock > 0 %}
+                    <div class="quantity-selector mb-4">
+                        <form method="POST" action="{% url 'products:add_to_cart_with_quantity' product.pk %}" class="quantity-form-detail">
+                            {% csrf_token %}
+                            <div class="row g-2 align-items-center">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label mb-1 small text-muted">Cantidad:</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="decrementQuantityDetail()">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <input type="number" name="quantity" id="quantity-input" class="form-control text-center" value="1" min="1" max="{{ product.stock }}" readonly>
+                                        <button class="btn btn-outline-secondary" type="button" onclick="incrementQuantityDetail({{ product.stock }})">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <small class="text-muted d-block mt-1">Stock: {{ product.stock }}</small>
+                                </div>
+                            </div>
+                            <div class="row g-2 align-items-center">
+                                <label class="form-label mb-1 small text-muted d-none d-md-block">&nbsp;</label>
+                                <button type="submit" class="btn btn-success btn-lg w-100">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al Carrito
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    {% if product.stock < 5 %}
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>¡Últimas unidades!</strong> No te quedes sin el tuyo.
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="mb-4">
+                        <button class="btn btn-secondary btn-lg w-100" disabled>
+                            <i class="fas fa-times me-2"></i>No Disponible
+                        </button>
+                    </div>
+                    {% endif %}
+
+                    <!-- Botones Secundarios -->
+                    <div class="d-flex gap-2 mb-4">
+                        <a href="{% url 'products:lista_productos' %}" class="btn btn-outline-secondary flex-fill">
+                            <i class="fas fa-arrow-left me-2"></i>Volver
+                        </a>
+                        {% if user.is_staff %}
+                            <a href="{% url 'products:editar_producto' product.pk %}" class="btn btn-outline-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Características -->
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <i class="fas fa-shipping-fast text-success"></i>
+                            <div>
+                                <strong>Envío Gratis</strong>
+                                <small class="text-muted d-block">En compras superiores a $20.000</small>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt text-success"></i>
+                            <div>
+                                <strong>Compra Segura</strong>
+                                <small class="text-muted d-block">Protegemos tus datos</small>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-undo text-success"></i>
+                            <div>
+                                <strong>Devolución Gratis</strong>
+                                <small class="text-muted d-block">Hasta 30 días</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Productos Relacionados (Opcional) -->
+        {% if related_products %}
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="mb-4">Productos Relacionados</h3>
+            </div>
+            {% for related in related_products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="product-card">
+                    <div class="product-image">
+                        {% if related.image %}
+                            <img src="{{ related.image.url }}" alt="{{ related.name }}" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.png' %}" alt="{{ related.name }}" class="img-fluid">
+                        {% endif %}
+                    </div>
+                    <div class="product-info p-3">
+                        <h6 class="product-title">{{ related.name }}</h6>
+                        <div class="product-price mb-2">
+                            <span class="text-success fw-bold">{{ related.price|precio_clp }}</span>
+                        </div>
+                        <a href="{% url 'products:detalle_producto' related.pk %}" class="btn btn-sm btn-outline-success w-100">
+                            Ver Detalle
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/products.js' %}"></script>
+{% endblock %}

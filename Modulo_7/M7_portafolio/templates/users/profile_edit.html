@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} GoWest | Editar Perfil{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <h1 class="h3 mb-2">
+            <i class="fas fa-user-edit"></i> Editar Perfil
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'users:perfil' %}">Mi Perfil</a></li>
+                <li class="breadcrumb-item active">Editar</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Contenido Principal -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                
+                <!-- Formulario -->
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- Información Personal -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-user text-success me-2"></i>
+                                Información Personal
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="first_name" class="form-label">
+                                        <i class="fas fa-id-card text-success me-2"></i>Nombre
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        name="first_name" 
+                                        id="first_name" 
+                                        class="form-control" 
+                                        value="{{ user.first_name }}"
+                                        placeholder="Tu nombre">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="last_name" class="form-label">
+                                        <i class="fas fa-id-card text-success me-2"></i>Apellido
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        name="last_name" 
+                                        id="last_name" 
+                                        class="form-control" 
+                                        value="{{ user.last_name }}"
+                                        placeholder="Tu apellido">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="email" class="form-label">
+                                        <i class="fas fa-envelope text-success me-2"></i>Email
+                                    </label>
+                                    <input 
+                                        type="email" 
+                                        name="email" 
+                                        id="email" 
+                                        class="form-control" 
+                                        value="{{ user.email }}"
+                                        placeholder="tu@email.com">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Información de Contacto -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-address-card text-success me-2"></i>
+                                Información de Contacto
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">
+                                        <i class="fas fa-phone text-success me-2"></i>Teléfono
+                                    </label>
+                                    <input 
+                                        type="tel" 
+                                        name="phone" 
+                                        id="phone" 
+                                        class="form-control" 
+                                        value="{{ profile.phone }}"
+                                        placeholder="+56 9 1234 5678">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="city" class="form-label">
+                                        <i class="fas fa-city text-success me-2"></i>Ciudad
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        name="city" 
+                                        id="city" 
+                                        class="form-control" 
+                                        value="{{ profile.city }}"
+                                        placeholder="Tu ciudad">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="postal_code" class="form-label">
+                                        <i class="fas fa-mail-bulk text-success me-2"></i>Código Postal
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        name="postal_code" 
+                                        id="postal_code" 
+                                        class="form-control" 
+                                        value="{{ profile.postal_code }}"
+                                        placeholder="12345">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="address" class="form-label">
+                                        <i class="fas fa-map-marker-alt text-success me-2"></i>Dirección
+                                    </label>
+                                    <textarea 
+                                        name="address" 
+                                        id="address" 
+                                        class="form-control" 
+                                        rows="3"
+                                        placeholder="Calle, número, comuna">{{ profile.address }}</textarea>
+                                    <small class="form-text text-muted">
+                                        Esta dirección se usará por defecto para tus pedidos
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones -->
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-2"></i>Guardar Cambios
+                        </button>
+                        <a href="{% url 'users:perfil' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>Cancelar
+                        </a>
+                    </div>
+                    
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/forms.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Categoría{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación de Categoría
+            </div>
+            <div class="card-body">
+                <div class="delete-confirmation">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-trash" style="font-size: 4rem; color: var(--danger-color);"></i>
+                        <h3 class="mt-3">¿Estás seguro de eliminar esta categoría?</h3>
+                        <p class="text-muted">Esta acción no se puede deshacer</p>
+                    </div>
+
+                    <!-- Información de la categoría -->
+                    <div class="product-info">
+                        <h5 class="text-center mb-3">Información de la Categoría</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <strong><i class="bi bi-tag"></i> Nombre:</strong>
+                                <p class="mb-0">{{ categoria.nombre }}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong><i class="bi bi-box"></i> Productos Asignados:</strong>
+                                <p class="mb-0">
+                                    <span class="badge bg-primary fs-6">
+                                        {{ categoria.productos.count }} producto(s)
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <strong><i class="bi bi-text-paragraph"></i> Descripción:</strong>
+                            <p class="mb-0">
+                                {% if categoria.descripcion %}
+                                    {{ categoria.descripcion }}
+                                {% else %}
+                                    <span class="text-muted">Sin descripción</span>
+                                {% endif %}
+                            </p>
+                        </div>
+
+                        <!-- Lista de productos afectados -->
+                        {% if categoria.productos.all %}
+                            <div class="alert alert-warning">
+                                <h6><i class="bi bi-exclamation-triangle"></i> Productos que pertenecen a esta categoría:</h6>
+                                <ul class="mb-0">
+                                    {% for producto in categoria.productos.all|slice:":10" %}
+                                        <li>{{ producto.nombre }} - ${{ producto.precio }}</li>
+                                    {% endfor %}
+                                    {% if categoria.productos.count > 10 %}
+                                        <li><em>... y {{ categoria.productos.count|add:"-10" }} más</em></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Advertencias -->
+                    <div class="alert alert-danger mt-4">
+                        <h6><i class="bi bi-exclamation-triangle"></i> ¡ATENCIÓN!</h6>
+                        <ul class="mb-0">
+                            <li>Se eliminará permanentemente la categoría <strong>"{{ categoria.nombre }}"</strong></li>
+                            {% if categoria.productos.all %}
+                                <li><strong>NO PUEDES ELIMINAR</strong> esta categoría porque tiene productos asignados</li>
+                                <li>Debes reasignar o eliminar primero los {{ categoria.productos.count }} producto(s)</li>
+                            {% else %}
+                                <li>Esta categoría no tiene productos asignados</li>
+                                <li><strong>Esta acción NO se puede revertir</strong></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <!-- Formulario de confirmación -->
+                    {% if categoria.productos.count == 0 %}
+                        <form method="POST" class="mt-4 delete-form" data-item-name="{{ categoria.nombre }}">
+                            {% csrf_token %}
+                            <div class="d-flex justify-content-between gap-3">
+                                <a href="{% url 'lista_categorias' %}" class="btn btn-secondary flex-fill">
+                                    <i class="bi bi-arrow-left"></i> Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-danger flex-fill">
+                                    <i class="bi bi-trash"></i> Sí, eliminar categoría
+                                </button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="text-center mt-4">
+                            <a href="{% url 'lista_categorias' %}" class="btn btn-primary btn-lg">
+                                <i class="bi bi-arrow-left"></i> Volver a Categorías
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6><i class="bi bi-info-circle"></i> ¿Qué hacer si no puedo eliminar?</h6>
+                <ul class="mb-0">
+                    <li>Reasigna los productos a otra categoría</li>
+                    <li>O elimina primero los productos de esta categoría</li>
+                    <li>Luego podrás eliminar la categoría vacía</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

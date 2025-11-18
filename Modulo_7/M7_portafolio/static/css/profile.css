@@ -1,0 +1,68 @@
+/* Profile CSS */
+
+/* Profile Avatar */
+.profile-avatar {
+    position: relative;
+}
+
+.profile-avatar i {
+    display: block;
+}
+
+/* Stat Box */
+.stat-box {
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+.stat-box i {
+    display: block;
+}
+
+.stat-box h4 {
+    color: #212934;
+    font-weight: 700;
+}
+
+/* List Group */
+.list-group-item {
+    border: none;
+    padding: 1rem 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+    padding-left: 1.5rem;
+}
+
+.list-group-item.active {
+    background-color: #59ab6e;
+    border-color: #59ab6e;
+}
+
+.list-group-item i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Info Labels */
+label.text-muted {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .sticky-top {
+        position: relative !important;
+        top: 0 !important;
+    }
+}

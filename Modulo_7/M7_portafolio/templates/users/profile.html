@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} GoWest | Mi Perfil {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <h1 class="h3 mb-2">
+            <i class="fas fa-user-circle"></i> Mi Perfil
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                <li class="breadcrumb-item active">Mi Perfil</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Contenido Principal -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            
+            <!-- Sidebar -->
+            <div class="col-lg-3 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="profile-avatar mb-3">
+                            <i class="fas fa-user-circle fa-5x text-success"></i>
+                        </div>
+                        <h5 class="mb-1">{{ user.get_full_name|default:user.username }}</h5>
+                        <p class="text-muted small mb-3">{{ user.email }}</p>
+                        
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'users:editar_perfil' %}" class="btn btn-success btn-sm">
+                                <i class="fas fa-edit me-2"></i>Editar Perfil
+                            </a>
+                            <form method="POST" action="{% url 'users:logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger btn-sm w-100">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navegación -->
+                <div class="card shadow-sm mt-3">
+                    <div class="list-group list-group-flush">
+                        <a href="{% url 'users:perfil' %}" class="list-group-item list-group-item-action active">
+                            <i class="fas fa-user me-2"></i>Mi Perfil
+                        </a>
+                        <a href="{% url 'orders:lista_pedidos' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-box me-2"></i>Mis Pedidos
+                        </a>
+                        <a href="{% url 'products:cart_view' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-shopping-cart me-2"></i>Mi Carrito
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido Principal -->
+            <div class="col-lg-9">
+                
+                <!-- Información Personal -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-user text-success me-2"></i>
+                            Información Personal
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="text-muted small">Nombre de Usuario</label>
+                                <p class="fw-bold mb-0">{{ user.username }}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="text-muted small">Email</label>
+                                <p class="fw-bold mb-0">{{ user.email|default:"No especificado" }}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="text-muted small">Nombre</label>
+                                <p class="fw-bold mb-0">{{ user.first_name|default:"No especificado" }}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="text-muted small">Apellido</label>
+                                <p class="fw-bold mb-0">{{ user.last_name|default:"No especificado" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Información de Contacto -->
+                {% if profile %}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-address-card text-success me-2"></i>
+                            Información de Contacto
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="text-muted small">Teléfono</label>
+                                <p class="fw-bold mb-0">
+                                    {% if profile.phone %}
+                                        {{ profile.phone }}
+                                    {% else %}
+                                        <span class="text-muted">No especificado</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="text-muted small">Ciudad</label>
+                                <p class="fw-bold mb-0">
+                                    {% if profile.city %}
+                                        {{ profile.city }}
+                                    {% else %}
+                                        <span class="text-muted">No especificada</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="text-muted small">Código Postal</label>
+                                <p class="fw-bold mb-0">
+                                    {% if profile.postal_code %}
+                                        {{ profile.postal_code }}
+                                    {% else %}
+                                        <span class="text-muted">No especificado</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="text-muted small">Dirección</label>
+                                <p class="fw-bold mb-0">
+                                    {% if profile.address %}
+                                        {{ profile.address|linebreaks }}
+                                    {% else %}
+                                        <span class="text-muted">No especificada</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Estadísticas -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-bar text-success me-2"></i>
+                            Estadísticas
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <div class="stat-box">
+                                    <i class="fas fa-box fa-2x text-success mb-2"></i>
+                                    <h4 class="mb-0">{{ user.orders.count }}</h4>
+                                    <small class="text-muted">Pedidos Realizados</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <div class="stat-box">
+                                    <i class="fas fa-calendar fa-2x text-success mb-2"></i>
+                                    <h4 class="mb-0">{{ user.date_joined|date:"M Y" }}</h4>
+                                    <small class="text-muted">Miembro Desde</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-box">
+                                    <i class="fas fa-shopping-cart fa-2x text-success mb-2"></i>
+                                    <h4 class="mb-0">{{ request.session.cart|length|default:0 }}</h4>
+                                    <small class="text-muted">Items en Carrito</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

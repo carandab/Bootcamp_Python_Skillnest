@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %}GoWest | Productos{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="display-5 fw-bold mb-2">Nuestros Productos</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Inicio</a></li>
+                        <li class="breadcrumb-item active">Productos</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                {% if user.is_staff %}
+                    <a href="{% url 'products:crear_producto' %}" class="btn btn-success">
+                        <i class="fas fa-plus me-2"></i>Nuevo Producto
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seccion de Productos -->
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            
+            <!-- Barra para filtros / Opcion para escalado -->
+            <!-- <div class="col-lg-3">
+                <div class="filter-sidebar">
+                    <h5 class="mb-3">Filtros</h5>
+                    Filtros de Categoria, Marca, Precio, etc. 
+                </div>
+            </div> -->  
+            
+            <!-- Productos Grid -->
+            <div class="col-lg-12">
+                
+                <!-- Contrador y Ordenar -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="text-muted mb-0">
+                        <strong>{{ products.count }}</strong> producto{{ products.count|pluralize }} encontrado{{ products.count|pluralize }}
+                    </p>
+                    
+                    <!-- Ordenar -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">Ordenar por</button>
+                        <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                            <li>
+                                <a class="dropdown-item {% if current_sort == 'name' %}active{% endif %}" href="?sort=name">Nombre (A-Z)</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {% if current_sort == 'newest' %}active{% endif %}" href="?sort=newest">
+                                    <i class="fas fa-clock me-2"></i>Más Recientes
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {% if current_sort == 'price_low' %}active{% endif %}" href="?sort=price_low">
+                                    <i class="fas fa-arrow-down me-2"></i>Precio: Menor a Mayor
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {% if current_sort == 'price_high' %}active{% endif %}" href="?sort=price_high">
+                                    <i class="fas fa-arrow-up me-2"></i>Precio: Mayor a Menor
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Grid de Productos -->
+                {% if products %}
+                <div class="row g-4">
+                    {% for product in products %}
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product-card" data-href="{% url 'products:detalle_producto' product.pk %}">
+                                <!-- Badges -->
+                                {% if product.sale_price %}
+                                    <span class="product-badge bg-danger">¡Oferta!</span>
+                                {% elif product.is_featured %}
+                                    <span class="product-badge bg-success">Destacado</span>
+                                {% endif %}
+                                
+                                <!-- Acciones para staff -->
+                                {% if user.is_staff %}
+                                <div class="product-actions">
+                                    <a href="{% url 'products:editar_producto' product.pk %}" class="btn btn-sm btn-primary" title="Editar" onclick="event.stopPropagation();">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{% url 'products:confirmar_eliminar_producto' product.pk %}" class="btn btn-sm btn-danger" title="Eliminar" onclick="event.stopPropagation();">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                                {% endif %}   
+                                                            
+                                <!-- Imagen del Producto -->
+                                <div class="product-image">
+                                    {% if product.image %}
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+                                    {% else %}
+                                        <img src="{% static 'images/placeholder.png' %}" alt="{{ product.name }}" class="img-fluid">
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Informacion del Producto -->
+                                <div class="product-info p-3">
+                                    <h5 class="product-title">{{ product.name }}</h5>      
+
+                                    <!-- Categoria y Marca -->
+                                    <div class="product-meta mb-2">
+                                        {% if product.category %}
+                                            <span class="badge bg-light text-dark">{{ product.category.name }}</span>
+                                        {% endif %}
+                                        {% if product.brand %}
+                                            <span class="badge bg-light text-dark">{{ product.brand.name }}</span>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Descripcion (Acortada) -->
+                                    {% if product.description %}
+                                    <p class="product-description text-muted small">
+                                        {{ product.description|truncatewords:10 }}
+                                    </p>
+                                    {% endif %}
+                                    
+                                    <!-- Precio -->
+                                    <div class="product-price mb-3">
+                                        {% if product.sale_price %}
+                                            <span class="text-muted text-decoration-line-through small">{{ product.price|precio_clp }}</span>
+                                            <span class="text-success fw-bold fs-5 ms-2">{{ product.sale_price|precio_clp }}</span>
+                                            <span class="badge bg-danger ms-2">
+                                                -{{ product.price|calcular_descuento:product.sale_price }}%
+                                            </span>
+                                        {% else %}
+                                            <span class="text-success fw-bold fs-5">{{ product.price|precio_clp }}</span>
+                                        {% endif %}
+                                    </div>
+                                                        
+                                    <!-- Stock -->
+                                    <div class="mb-2">
+                                        {% if product.stock > 0 %}
+                                            {% if product.stock < 5 %}
+                                                <span class="badge bg-warning text-dark">
+                                                    <i class="fas fa-exclamation-triangle"></i> Últimas {{ product.stock }} unidades
+                                                </span>
+                                            {% else %}
+                                                <span class="badge bg-success">
+                                                    <i class="fas fa-check"></i> Disponible ({{ product.stock }})
+                                                </span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="badge bg-danger">
+                                                <i class="fas fa-times"></i> Agotado
+                                            </span>
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- Añadir al carrito -->
+                                    {% if product.stock > 0 %}
+                                        <a href="{% url 'products:add_to_cart' product.pk %}" class="btn btn-success btn-sm w-100 add-to-cart-btn">
+                                            <i class="fas fa-cart-plus me-2"></i>Agregar al Carrito
+                                        </a>
+                                    {% else %}
+                                        <button class="btn btn-secondary btn-sm w-100" disabled>
+                                            No Disponible
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+
+                <!-- Pagina vacia -->
+                <div class="empty-state text-center py-5">
+                    <i class="fas fa-box-open fa-5x text-muted mb-4"></i>
+                    <h3 class="mb-3">No hay productos disponibles</h3>
+                    <p class="text-muted">Por el momento no tenemos productos en nuestro catálogo.</p>  
+                    {% if user.is_staff %}
+                        <a href="{% url 'products:crear_producto' %}" class="btn btn-success mt-3">
+                            <i class="fas fa-plus me-2"></i>Agregar Primer Producto
+                        </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/products.js' %}"></script>
+{% endblock %}
