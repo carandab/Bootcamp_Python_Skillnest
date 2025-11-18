@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Mis Tareas - Gestor de Tareas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-list-check text-primary"></i> Mis Tareas</h2>
+            <a href="{% url 'agregar_tarea' %}" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Nueva Tarea
+            </a>
+        </div>
+
+        {% if tareas %}
+            <div class="row">
+                {% for tarea in tareas %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm hover-shadow">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-check-circle{% if not tarea.completada %}-fill text-muted{% else %} text-success{% endif %}"></i>
+                                    {{ tarea.titulo }}
+                                </h5>
+                                <p class="card-text text-muted">
+                                    {{ tarea.descripcion|truncatewords:15 }}
+                                </p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <a href="{% url 'detalle_tarea' tarea.id %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> Ver
+                                    </a>
+                                    <a href="{% url 'eliminar_tarea' tarea.id %}" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i> Eliminar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center">
+                <i class="bi bi-info-circle display-4"></i>
+                <h4 class="mt-3">No tienes tareas aún</h4>
+                <p>Comienza creando tu primera tarea haciendo clic en el botón "Nueva Tarea"</p>
+                <a href="{% url 'agregar_tarea' %}" class="btn btn-primary mt-2">
+                    <i class="bi bi-plus-circle"></i> Crear Primera Tarea
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .hover-shadow {
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    .hover-shadow:hover {
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+</style>
+{% endblock %}

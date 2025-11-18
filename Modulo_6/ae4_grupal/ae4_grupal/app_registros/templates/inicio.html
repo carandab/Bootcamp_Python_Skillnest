@@ -1,0 +1,24 @@
+{% extends 'base.html' %}   
+{% load static %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+
+<div class="px-4 pt-5 my-5 text-center border-bottom">
+    <h1 class="display-4 fw-bold text-body-emphasis">Gestión de Eventos y Participantes</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Organiza y registra tus eventos de manera simple y eficiente.
+            Nuestra plataforma te permite crear eventos con toda la información relevante: nombre, fecha y ubicación,
+            además de gestionar la lista de participantes con sus datos de contacto. Todo en un solo lugar.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+            <a href="{% url 'formulario1' %}" id="btn-eventos" class="btn btn-lg px-5 py-3 me-sm-4">Eventos</a>
+            <a href="{% url 'formulario2' %}" id="btn-personas" class="btn btn-lg px-5 py-3">Personas</a>
+        </div>
+    </div>
+    <div class="overflow-hidden">
+        <div class="container px-5 mb-2"> <img src="{% static 'img/imagen_hero.jpg' %}"  class="img-fluid border rounded-3 shadow-lg mb-4" alt="Imagen de evento masivo" >
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

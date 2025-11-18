@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Tarea - Gestor de Tareas{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="mb-3">
+            <a href="{% url 'lista_tareas' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a Mis Tareas
+            </a>
+        </div>
+
+        <div class="card shadow border-danger">
+            <div class="card-header bg-danger text-white">
+                <h3 class="mb-0">
+                    <i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <strong>¡Atención!</strong> Esta acción no se puede deshacer.
+                </div>
+
+                <h5 class="mb-3">¿Estás seguro de que deseas eliminar esta tarea?</h5>
+                
+                <div class="card bg-light mb-4">
+                    <div class="card-body">
+                        <h6 class="text-primary mb-2">
+                            <i class="bi bi-file-text"></i> {{ tarea.titulo }}
+                        </h6>
+                        <p class="text-muted mb-0">{{ tarea.descripcion|truncatewords:30 }}</p>
+                    </div>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Sí, Eliminar Tarea
+                        </button>
+                        <a href="{% url 'lista_tareas' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

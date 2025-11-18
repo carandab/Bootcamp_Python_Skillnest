@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Inicio - Eventos{% endblock %}
+{% block content %}
+
+<!-- Cabecera compacta -->
+<div class="container mt-4 mb-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-0"><i class="fas fa-calendar-alt me-2"></i>Eventos</h1>
+            <p class="text-muted mb-0">Listado de eventos recientes y próximos. Puedes ver, editar o crear nuevos eventos.</p>
+        </div>
+        <div>
+            {% if perms.login.crear_eventos %}
+            <a href="{% url 'app_eventos:crear_evento' %}" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i>Nuevo Evento
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-12">
+            {% if eventos %}
+                <div class="row">
+                    {% for evento in eventos %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="card-title mb-0">{{ evento.nombre }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <i class="fas fa-calendar me-2"></i>
+                                    <strong>Fecha:</strong> {{ evento.fecha|date:"d/m/Y" }}
+                                </p>
+                                <p class="card-text">
+                                    <i class="fas fa-map-marker-alt me-2"></i>
+                                    <strong>Ubicación:</strong> {{ evento.ubicacion }}
+                                </p>
+                                {% if evento.creador %}
+                                <p class="card-text">
+                                    <i class="fas fa-user me-2"></i>
+                                    <strong>Organizador:</strong> {{ evento.creador.username }}
+                                </p>
+                                {% endif %}
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'app_eventos:detalle_evento' evento.id %}" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye"></i> Ver Detalles
+                                    </a>
+                                    {% if user.is_authenticated %}
+                                        {% if user in evento.participantes.all %}
+                                            <a href="{% url 'app_eventos:cancelar_registro_evento' evento.id %}" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-times"></i> Cancelar Registro
+                                            </a>
+                                        {% else %}
+                                            {% if evento.participantes.count < evento.capacidad %}
+                                                <a href="{% url 'app_eventos:registrar_evento' evento.id %}" class="btn btn-success btn-sm">
+                                                    <i class="fas fa-check"></i> Registrarse
+                                                </a>
+                                            {% else %}
+                                                <button class="btn btn-secondary btn-sm" disabled>
+                                                    <i class="fas fa-ban"></i> Evento Lleno
+                                                </button>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% else %}
+                                        <a href="{% url 'auth:register' %}?next={% url 'app_eventos:registrar_evento' evento.id %}" class="btn btn-success btn-sm">
+                                            <i class="fas fa-check"></i> Registrarse
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="btn-group w-100 mt-2" role="group">
+                                    {% if user.is_authenticated and perms.login.editar_eventos %}
+                                    <a href="{% url 'app_eventos:editar_evento' evento.id %}" class="btn btn-outline-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    {% endif %}
+                                    {% if perms.login.eliminar_eventos %}
+                                    <a href="{% url 'app_eventos:eliminar_evento' evento.id %}" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="{% url 'app_eventos:lista_eventos' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-list me-1"></i> Ver lista completa de eventos
+                    </a>
+                </div>
+
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-calendar-times fa-5x text-muted mb-3"></i>
+                    <h3 class="text-muted">No hay eventos registrados</h3>
+                    <p class="text-muted">Comienza creando tu primer evento</p>
+                    {% if perms.login.crear_eventos %}
+                    <a href="{% url 'app_eventos:crear_evento' %}" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i>Crear Primer Evento
+                    </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+    .btn-outline-primary {
+        border-radius: 6px;
+    }
+</style>
+{% endblock %}

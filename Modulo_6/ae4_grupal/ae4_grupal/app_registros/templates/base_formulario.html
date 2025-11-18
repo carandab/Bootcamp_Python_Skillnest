@@ -1,0 +1,19 @@
+{% extends 'base.html' %}   
+{% load static %}
+{% block title %}{% block form_title %}Formulario{% endblock %}{% endblock %}
+{% block content %}
+
+<div class="container-fluid pb-5 py-2 rounded">
+    
+    <div class="row ms-4">
+        <h1 class="font-weight-bold text-start mt-3">{% block form_heading %}Registrar{% endblock %}</h1>
+    </div>
+
+    <div class="container col-md-6 mb-2 py-4 rounded">
+        {% block form_content %}
+        <!-- Aquí va el contenido del formulario -->
+        {% endblock %}
+    </div>
+
+</div>
+{% endblock %}

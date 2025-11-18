@@ -1,0 +1,82 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} - TaskManager Pro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'category_list' %}">Categorías</a></li>
+                <li class="breadcrumb-item active">{{ title }}</li>
+            </ol>
+        </nav>
+
+        <!-- Título -->
+        <h2 class="mb-4">
+            <i class="bi bi-plus-circle text-success"></i> {{ title }}
+        </h2>
+
+        <!-- Formulario -->
+        <div class="card shadow-lg">
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Nombre -->
+                    <div class="mb-3">
+                        <label for="{{ form.name.id_for_label }}" class="form-label">
+                            <i class="bi bi-tag"></i> Nombre de la Categoría *
+                        </label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.name.errors }}
+                            </div>
+                        {% endif %}
+                        <small class="text-muted">
+                            Ejemplo: Trabajo, Personal, Estudios, etc.
+                        </small>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">
+                            <i class="bi bi-file-text"></i> Descripción (Opcional)
+                        </label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.description.errors }}
+                            </div>
+                        {% endif %}
+                        <small class="text-muted">
+                            Agrega una breve descripción de esta categoría.
+                        </small>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="{% url 'category_list' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Crear Categoría
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Ayuda -->
+        <div class="alert alert-info mt-4">
+            <i class="bi bi-lightbulb"></i> 
+            <strong>Consejo:</strong> Las categorías te ayudan a agrupar tareas relacionadas 
+            y facilitan la búsqueda y organización de tu trabajo.
+        </div>
+    </div>
+</div>
+{% endblock %}

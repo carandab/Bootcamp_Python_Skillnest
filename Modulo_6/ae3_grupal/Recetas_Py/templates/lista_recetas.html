@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Recetas</h2>
+
+<div class="row">
+  {% for receta in recetas %}
+    <div class="col-md-4 mb-4 mt-3">
+      <div class="card" style="width: 100%;">
+        <img src="{{ receta.imagen.url }}" class="card-img-top py-2" alt="{{ receta.nombre }}">
+        <div class="card-body">
+          <h5 class="card-title mb-2">{{ receta.nombre }}</h5>
+          <a href="{% url 'detalle_receta' receta.id %}" class="btn btn-primary my-2">Ir a la receta</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No hay recetas disponibles.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 800px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <div>
+        <h2 style="margin-top: 10px; margin-bottom: 20px;">{{ receta.nombre }}</h2>
+    </div>
+    <div style="margin-bottom: 20px; border-top: 1px solid #ccc;">
+        <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre }}" class="img-fluid d-block mx-auto my-3 rounded" />          <p><strong>Ingredientes:</strong> {{ receta.ingredientes }}</p>
+        <p><strong>Instrucciones:</strong> {{ receta.instrucciones }}</p>
+        <p><strong>Tiempo de preparación:</strong> {{ receta.tiempo_preparacion }} minutos</p>
+    </div>
+</div>
+{% endblock %}
+
+

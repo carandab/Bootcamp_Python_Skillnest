@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Gestor de Tareas{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 text-center">
+        <i class="bi bi-clipboard-check display-1 text-primary"></i>
+        <h1 class="display-4 mt-3">Bienvenido al Gestor de Tareas</h1>
+        <p class="lead text-muted">Organiza tu día de manera eficiente</p>
+        
+        {% if user.is_authenticated %}
+            <div class="mt-4">
+                <a href="{% url 'lista_tareas' %}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-list-check"></i> Ver Mis Tareas
+                </a>
+                <a href="{% url 'agregar_tarea' %}" class="btn btn-success btn-lg ms-2">
+                    <i class="bi bi-plus-circle"></i> Nueva Tarea
+                </a>
+            </div>
+        {% else %}
+            <div class="mt-4">
+                <a href="{% url 'registro' %}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-person-plus"></i> Registrarse
+                </a>
+                <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg ms-2">
+                    <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4 text-center mb-4">
+        <i class="bi bi-shield-check display-3 text-primary"></i>
+        <h4 class="mt-3">Seguro</h4>
+        <p class="text-muted">Tus tareas están protegidas y solo tú puedes acceder a ellas</p>
+    </div>
+    <div class="col-md-4 text-center mb-4">
+        <i class="bi bi-speedometer2 display-3 text-primary"></i>
+        <h4 class="mt-3">Rápido</h4>
+        <p class="text-muted">Crea y gestiona tareas de forma rápida y sencilla</p>
+    </div>
+    <div class="col-md-4 text-center mb-4">
+        <i class="bi bi-phone display-3 text-primary"></i>
+        <h4 class="mt-3">Responsivo</h4>
+        <p class="text-muted">Accede desde cualquier dispositivo, en cualquier momento</p>
+    </div>
+</div>
+{% endblock %}

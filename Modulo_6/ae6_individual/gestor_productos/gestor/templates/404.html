@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Página No Encontrada{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h2><i class="fas fa-search"></i> Página No Encontrada</h2>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <i class="fas fa-map-signs fa-5x text-warning mb-3"></i>
+                        <h3 class="text-warning">Error 404 - Página no encontrada</h3>
+                    </div>
+                    
+                    <p class="lead">
+                        Lo sentimos, la página que estás buscando no existe o ha sido movida.
+                    </p>
+                    
+                    <div class="alert alert-info">
+                        <h5>¿Qué puedes hacer?</h5>
+                        <ul class="text-left">
+                            <li>Verifica que la URL sea correcta</li>
+                            <li>Regresa a la página anterior</li>
+                            <li>Ve a la página de inicio</li>
+                            <li>Si crees que esto es un error, contacta con el administrador</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'index' %}" class="btn btn-primary btn-lg mr-3">
+                            <i class="fas fa-home"></i> Volver al Inicio
+                        </a>
+                        <button onclick="history.back()" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-arrow-left"></i> Volver Atrás
+                        </button>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <small class="text-muted">
+                            Si continúas experimentando problemas, por favor contacta al soporte técnico.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

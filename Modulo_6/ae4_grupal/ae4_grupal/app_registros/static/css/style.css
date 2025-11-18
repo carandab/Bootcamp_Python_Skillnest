@@ -1,0 +1,43 @@
+body {
+    background: linear-gradient(135deg, #2D3E50 0%, #34495E 100%);
+}
+
+.container {
+    background-color: #ECF0F1;
+    border-radius: 10px;
+}
+
+#btn-eventos {
+    background-color: #3498DB;
+    border-color: #3498DB;
+    color: white;
+}
+
+#btn-eventos:hover {
+    background-color: #2980B9;
+}
+
+#btn-personas {
+    background-color: #3498DB;
+    border-color: #3498DB;
+    color: white;
+}
+
+#btn-personas:hover {
+    background-color: #2980B9;
+}
+
+
+#btn-enviar {
+    background-color: #3498DB;
+    border-color: #3498DB;
+}
+
+#btn-enviar:hover {
+    background-color: #2980B9;
+}
+
+h1 {
+    padding: 10px;
+    border-radius: 10px;
+}

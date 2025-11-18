@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Evento{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-edit me-2"></i>Editar Evento
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong><i class="fas fa-exclamation-triangle me-1"></i>¡Error!</strong> 
+                            Por favor corrige los siguientes errores:
+                            <ul class="mb-0 mt-2">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ field.label }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                        </div>
+                    {% endif %}
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="fas fa-tag me-1"></i>Nombre del Evento *
+                            </label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" 
+                                   value="{{ form.nombre.value|default:evento.nombre }}" required>
+                            {% if form.nombre.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.nombre.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">
+                                <i class="fas fa-align-left me-1"></i>Descripción
+                            </label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3">{{ form.descripcion.value|default:evento.descripcion }}</textarea>
+                            {% if form.descripcion.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.descripcion.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fecha" class="form-label">
+                                    <i class="fas fa-calendar me-1"></i>Fecha *
+                                </label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" 
+                                       value="{{ form.fecha.value|default:evento.fecha|date:'Y-m-d' }}" required>
+                                {% if form.fecha.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.fecha.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="hora" class="form-label">
+                                    <i class="fas fa-clock me-1"></i>Hora
+                                </label>
+                                <input type="time" class="form-control" id="hora" name="hora" 
+                                       value="{{ form.hora.value|default:evento.hora|time:'H:i' }}">
+                                {% if form.hora.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.hora.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ubicacion" class="form-label">
+                                <i class="fas fa-map-marker-alt me-1"></i>Ubicación *
+                            </label>
+                            <input type="text" class="form-control" id="ubicacion" name="ubicacion" 
+                                   value="{{ form.ubicacion.value|default:evento.ubicacion }}" required>
+                            {% if form.ubicacion.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.ubicacion.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="capacidad" class="form-label">
+                                <i class="fas fa-users me-1"></i>Capacidad máxima
+                            </label>
+                            <input type="number" class="form-control" id="capacidad" name="capacidad" 
+                                   value="{{ form.capacidad.value|default:evento.capacidad }}" min="1">
+                            {% if form.capacidad.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.capacidad.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'app_eventos:detalle_evento' evento.id %}" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-1"></i>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save me-1"></i>Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-control:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+    }
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+</style>
+{% endblock %}

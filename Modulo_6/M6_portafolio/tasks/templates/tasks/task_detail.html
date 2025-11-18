@@ -1,0 +1,132 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}{{ task.title }} - TaskManager Pro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'task_list' %}">Mis Tareas</a></li>
+                <li class="breadcrumb-item active">{{ task.title }}</li>
+            </ol>
+        </nav>
+
+        <!-- Título y acciones -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-info-circle text-primary"></i> Detalle de Tarea</h2>
+            <div class="btn-group">
+                <a href="{% url 'task_update' task.pk %}" class="btn btn-warning">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+                <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Eliminar
+                </a>
+            </div>
+        </div>
+
+        <!-- Card principal -->
+        <div class="card shadow-lg priority-{{ task.priority }} mb-4">
+            <div class="card-header bg-white">
+                <h3 class="mb-0">{{ task.title }}</h3>
+            </div>
+            <div class="card-body">
+                <!-- Estado y Prioridad -->
+                <div class="task-meta mb-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted mb-2">
+                                <i class="bi bi-info-circle"></i> Estado
+                            </h6>
+                            {% if task.status == 'completed' %}
+                            <span class="badge bg-success status-badge">
+                                <i class="bi bi-check-circle"></i> {{ task.get_status_display }}
+                            </span>
+                            {% elif task.status == 'in_progress' %}
+                            <span class="badge bg-warning text-dark status-badge">
+                                <i class="bi bi-hourglass-split"></i> {{ task.get_status_display }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-secondary status-badge">
+                                <i class="bi bi-clock"></i> {{ task.get_status_display }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted mb-2">
+                                <i class="bi bi-flag"></i> Prioridad
+                            </h6>
+                            {% if task.priority == 'high' %}
+                            <span class="badge bg-danger status-badge">
+                                <i class="bi bi-flag-fill"></i> {{ task.get_priority_display }}
+                            </span>
+                            {% elif task.priority == 'medium' %}
+                            <span class="badge bg-warning text-dark status-badge">
+                                <i class="bi bi-flag"></i> {{ task.get_priority_display }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-success status-badge">
+                                <i class="bi bi-flag"></i> {{ task.get_priority_display }}
+                            </span>
+                            {% endif %}
+                        </div>
+
+                        {% if task.category %}
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted mb-2">
+                                <i class="bi bi-tag"></i> Categoría
+                            </h6>
+                            <span class="badge bg-info status-badge">
+                                {{ task.category.name }}
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {% if task.due_date %}
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted mb-2">
+                                <i class="bi bi-calendar"></i> Fecha límite
+                            </h6>
+                            <span class="badge bg-dark status-badge">
+                                {{ task.due_date|date:"d/m/Y" }}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Descripción -->
+                <div class="mb-4">
+                    <h5 class="mb-3">
+                        <i class="bi bi-file-text"></i> Descripción
+                    </h5>
+                    <div class="p-3 bg-light rounded">
+                        <p class="mb-0" style="white-space: pre-wrap;">{{ task.description }}</p>
+                    </div>
+                </div>
+
+                <!-- Información adicional -->
+                <div class="row text-muted small">
+                    <div class="col-md-6">
+                        <i class="bi bi-clock-history"></i> 
+                        <strong>Creada:</strong> {{ task.created_at|date:"d/m/Y H:i" }}
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <i class="bi bi-arrow-clockwise"></i> 
+                        <strong>Actualizada:</strong> {{ task.updated_at|date:"d/m/Y H:i" }}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <a href="{% url 'task_list' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver a mis tareas
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

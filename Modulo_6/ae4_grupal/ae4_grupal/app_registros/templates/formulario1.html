@@ -1,0 +1,67 @@
+{% extends 'base_formulario.html' %}   
+{% load static %}
+
+{% block form_title %}Registrar Evento{% endblock %}
+{% block form_heading %}Registrar Evento{% endblock %}
+
+{% block form_content %}
+
+{% if form.errors %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>¡Error!</strong> Por favor corrige los siguientes errores:
+    <ul class="mb-0 mt-2">
+        {% for field in form %}
+            {% for error in field.errors %}
+                <li>{{ field.label }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
+        {{ form.nombre }}
+        {% if form.nombre.errors %}
+            <div class="text-danger mt-1">
+                {% for error in form.nombre.errors %}
+                    <small>{{ error }}</small>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.fecha.id_for_label }}" class="form-label">Fecha</label>
+        {{ form.fecha }}
+        {% if form.fecha.errors %}
+            <div class="text-danger mt-1">
+                {% for error in form.fecha.errors %}
+                    <small>{{ error }}</small>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.ubicacion.id_for_label }}" class="form-label">Ubicación</label>
+        {{ form.ubicacion }}
+        {% if form.ubicacion.errors %}
+            <div class="text-danger mt-1">
+                {% for error in form.ubicacion.errors %}
+                    <small>{{ error }}</small>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <button id="btn-enviar" class="btn btn-primary" type="submit">Enviar</button>
+</form>
+{% endblock %}

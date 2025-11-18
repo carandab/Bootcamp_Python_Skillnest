@@ -1,0 +1,73 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}Eliminar Categoría - TaskManager Pro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'category_list' %}">Categorías</a></li>
+                <li class="breadcrumb-item active">Eliminar Categoría</li>
+            </ol>
+        </nav>
+
+        <!-- Card de confirmación -->
+        <div class="card shadow-lg border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-warning">
+                    <i class="bi bi-info-circle"></i> 
+                    Esta acción no se puede deshacer.
+                </div>
+
+                <h5 class="mb-3">¿Estás seguro que deseas eliminar esta categoría?</h5>
+                
+                <!-- Información de la categoría -->
+                <div class="card bg-light mb-4">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="bi bi-tag-fill text-info"></i> {{ category.name }}
+                        </h6>
+                        {% if category.description %}
+                        <p class="card-text text-muted mb-2">
+                            {{ category.description }}
+                        </p>
+                        {% endif %}
+                        
+                        {% if tasks_count > 0 %}
+                        <div class="alert alert-info mb-0 mt-3">
+                            <i class="bi bi-info-circle"></i> 
+                            Esta categoría tiene <strong>{{ tasks_count }}</strong> 
+                            tarea{{ tasks_count|pluralize }} asociada{{ tasks_count|pluralize }}.
+                            <br>
+                            <small>Las tareas no se eliminarán, pero quedarán sin categoría.</small>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Formulario de confirmación -->
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="bi bi-trash"></i> Sí, eliminar categoría
+                        </button>
+                        <a href="{% url 'category_list' %}" class="btn btn-secondary btn-lg">
+                            <i class="bi bi-x-circle"></i> No, cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}Inicio - TaskManager Pro{% endblock %}
+
+{% block content %}
+<div class="text-center py-5 fade-in">
+    <h1 class="display-3 mb-3">
+        <i class="bi bi-check2-square text-primary"></i> 
+        TaskManager Pro
+    </h1>
+    <p class="lead text-muted mb-5">La mejor forma de organizar tus tareas y proyectos</p>
+    
+    {% if user.is_authenticated %}
+    <!-- Usuario autenticado -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h2 class="mb-4">¡Bienvenido de nuevo, {{ user.username }}! 👋</h2>
+                    <p class="text-muted mb-5">¿Qué te gustaría hacer hoy?</p>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <a href="{% url 'task_list' %}" class="text-decoration-none">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-list-task text-primary" style="font-size: 3rem;"></i>
+                                        <h4 class="mt-3">Ver mis tareas</h4>
+                                        <p class="text-muted">Revisa y gestiona todas tus tareas</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <a href="{% url 'task_create' %}" class="text-decoration-none">
+                                <div class="card h-100 border-success">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-plus-circle text-success" style="font-size: 3rem;"></i>
+                                        <h4 class="mt-3">Nueva tarea</h4>
+                                        <p class="text-muted">Crea una nueva tarea rápidamente</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <a href="{% url 'category_list' %}" class="text-decoration-none">
+                                <div class="card h-100 border-info">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-tags text-info" style="font-size: 3rem;"></i>
+                                        <h4 class="mt-3">Categorías</h4>
+                                        <p class="text-muted">Organiza por categorías</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% else %}
+    <!-- Usuario NO autenticado -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-8">
+            <div class="row g-4 mb-5">
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-check-circle text-success" style="font-size: 2.5rem;"></i>
+                            <h5 class="mt-3">Organiza</h5>
+                            <p class="text-muted small">Gestiona todas tus tareas en un solo lugar</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-tags text-primary" style="font-size: 2.5rem;"></i>
+                            <h5 class="mt-3">Categoriza</h5>
+                            <p class="text-muted small">Crea categorías personalizadas</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-flag text-warning" style="font-size: 2.5rem;"></i>
+                            <h5 class="mt-3">Prioriza</h5>
+                            <p class="text-muted small">Define prioridades para tus tareas</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-graph-up text-info" style="font-size: 2.5rem;"></i>
+                            <h5 class="mt-3">Progresa</h5>
+                            <p class="text-muted small">Sigue el progreso de tus proyectos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h3 class="mb-4">¿Listo para ser más productivo?</h3>
+                    <div class="d-grid gap-3">
+                        <a href="{% url 'users:register' %}" class="btn btn-primary btn-lg">
+                            <i class="bi bi-person-plus"></i> Crear cuenta gratis
+                        </a>
+                        <a href="{% url 'users:login' %}" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-box-arrow-in-right"></i> Ya tengo una cuenta
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}Iniciar Sesión - TaskManager Pro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-lg-5 col-md-7">
+        <div class="text-center mb-4">
+            <i class="bi bi-box-arrow-in-right text-primary" style="font-size: 4rem;"></i>
+            <h2 class="mt-3">Iniciar Sesión</h2>
+            <p class="text-muted">Accede a tu cuenta de TaskManager Pro</p>
+        </div>
+
+        <div class="card shadow-lg">
+            <div class="card-body p-5">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">
+                            <i class="bi bi-person"></i> Usuario
+                        </label>
+                        <input type="text" 
+                               name="username" 
+                               id="id_username" 
+                               class="form-control form-control-lg {% if form.username.errors %}is-invalid{% endif %}" 
+                               placeholder="Tu nombre de usuario"
+                               required>
+                        {% if form.username.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.username.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-4">
+                        <label for="id_password" class="form-label">
+                            <i class="bi bi-lock"></i> Contraseña
+                        </label>
+                        <input type="password" 
+                               name="password" 
+                               id="id_password" 
+                               class="form-control form-control-lg {% if form.password.errors %}is-invalid{% endif %}" 
+                               placeholder="Tu contraseña"
+                               required>
+                        {% if form.password.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.password.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Remember me -->
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                        <label class="form-check-label" for="remember">
+                            Recordarme
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                        </button>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="my-4">
+
+                    <!-- Register Link -->
+                    <div class="text-center">
+                        <p class="text-muted mb-0">
+                            ¿No tienes una cuenta? 
+                            <a href="{% url 'users:register' %}" class="text-decoration-none">
+                                <strong>Regístrate aquí</strong>
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Extra Info -->
+        <div class="text-center mt-4">
+            <p class="text-muted small">
+                <i class="bi bi-shield-check"></i> 
+                Tus datos están seguros con nosotros
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

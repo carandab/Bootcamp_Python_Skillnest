@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row" style="max-width: 1000px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <div class="col-md-6" style="margin-bottom: 20px; padding-right: 20px; border-right: 1px solid #ccc;">
+        <h2><strong>Contacto</strong></h2>
+        <p style="margin-bottom: 10px; padding: 5px;"><span>Si tienes alguna pregunta o comentario, no dudes en ponerte en contacto con nosotros.</span></p>
+        <p><strong>Email:</strong> <a href="mailto:info@recetas.com">info@recetas.com</a></p>
+        <p><strong>Teléfono:</strong> +34 123 456 789</p>
+        <p><strong>Dirección:</strong> Calle Falsa 123, Ciudad, País</p>
+        <p><strong>Horario:</strong> Lunes a Viernes de 9:00 a 18:00</p>
+    </div>
+
+    <div class="col-md-6" style="margin-bottom: 20px; padding-left: 20px; border-left: 1px solid #ccc;">
+        <h3><strong>Formulario de Contacto</strong></h3>
+        <form action="">
+        <label for="name">Nombre:</label><br>
+        <input type="text" id="name" name="name" cols="40" required><br><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" cols="40" required><br><br>
+        <label for="message">Mensaje:</label><br>
+        <textarea id="message" name="message" rows="6" cols="60" required></textarea><br><br>
+        <input type="submit" value="Enviar">
+        </form>
+    </div>
+</div>
+{% endblock %}

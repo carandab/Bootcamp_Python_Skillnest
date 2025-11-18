@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ tarea.titulo }} - Gestor de Tareas{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="mb-3">
+            <a href="{% url 'lista_tareas' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a Mis Tareas
+            </a>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">
+                    <i class="bi bi-file-text"></i> Detalle de Tarea
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <div class="mb-4">
+                    <h4 class="text-primary">{{ tarea.titulo }}</h4>
+                    <hr>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="text-muted mb-3">
+                        <i class="bi bi-card-text"></i> Descripción
+                    </h5>
+                    <p class="lead">{{ tarea.descripcion }}</p>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="text-muted mb-3">
+                        <i class="bi bi-info-circle"></i> Estado
+                    </h5>
+                    {% if tarea.completada %}
+                        <span class="badge bg-success fs-6">
+                            <i class="bi bi-check-circle"></i> Completada
+                        </span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark fs-6">
+                            <i class="bi bi-clock"></i> Pendiente
+                        </span>
+                    {% endif %}
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <a href="{% url 'lista_tareas' %}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </a>
+                    <a href="{% url 'eliminar_tarea' tarea.id %}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Eliminar Tarea
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

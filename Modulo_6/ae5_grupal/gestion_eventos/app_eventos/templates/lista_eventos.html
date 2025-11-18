@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lista de Eventos{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-calendar-alt me-2"></i>Lista de Eventos</h2>
+                {% if perms.login.crear_eventos %}
+                <a href="{% url 'app_eventos:crear_evento' %}" class="btn btn-primary">
+                    <i class="fas fa-plus me-1"></i>Nuevo Evento
+                </a>
+                {% endif %}
+            </div>
+
+            {% if eventos %}
+                <div class="row">
+                    {% for evento in eventos %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="card-title mb-0">{{ evento.nombre }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <i class="fas fa-calendar me-2"></i>
+                                    <strong>Fecha:</strong> {{ evento.fecha|date:"d/m/Y" }}
+                                </p>
+                                {% if evento.hora %}
+                                <p class="card-text">
+                                    <i class="fas fa-clock me-2"></i>
+                                    <strong>Hora:</strong> {{ evento.hora|time:"H:i" }}
+                                </p>
+                                {% endif %}
+                                <p class="card-text">
+                                    <i class="fas fa-map-marker-alt me-2"></i>
+                                    <strong>Ubicación:</strong> {{ evento.ubicacion }}
+                                </p>
+                                {% if evento.capacidad %}
+                                <p class="card-text">
+                                    <i class="fas fa-users me-2"></i>
+                                    <strong>Capacidad:</strong> {{ evento.capacidad }} personas
+                                </p>
+                                {% endif %}
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="btn-group w-100" role="group">
+                                    <a href="{% url 'app_eventos:detalle_evento' evento.id %}" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye"></i> Ver
+                                    </a>
+                                    {% if user.is_authenticated and perms.login.editar_eventos %}
+                                    <a href="{% url 'app_eventos:editar_evento' evento.id %}" class="btn btn-outline-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    {% endif %}
+                                    {% if perms.login.eliminar_eventos %}
+                                    <a href="{% url 'app_eventos:eliminar_evento' evento.id %}" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </a>
+                                    {% endif %}
+                                    {% if user.is_authenticated and user in evento.participantes.all %}
+                                        <a href="{% url 'app_eventos:cancelar_registro_evento' evento.id %}" class="btn btn-outline-secondary btn-sm">
+                                            <i class="fas fa-times"></i> Cancelar Registro
+                                        </a>
+                                    {% else %}
+                                        {% if not evento.capacidad or evento.participantes.count < evento.capacidad %}
+                                        <a href="{% if user.is_authenticated %}{% url 'app_eventos:registrar_evento' evento.id %}{% else %}{% url 'auth:register' %}?next={% url 'app_eventos:registrar_evento' evento.id %}{% endif %}" class="btn btn-outline-success btn-sm">
+                                            <i class="fas fa-check"></i> Registrarme
+                                        </a>
+                                        {% else %}
+                                        <button class="btn btn-outline-secondary btn-sm" disabled>
+                                            <i class="fas fa-ban"></i> Evento Lleno
+                                        </button>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Paginación si es necesaria -->
+                {% if is_paginated %}
+                <nav aria-label="Navegación de páginas">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1">Primera</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                            </li>
+                        {% endif %}
+                        
+                        <li class="page-item active">
+                            <span class="page-link">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                        </li>
+                        
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+                
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-calendar-times fa-5x text-muted mb-3"></i>
+                    <h3 class="text-muted">No hay eventos registrados</h3>
+                    <p class="text-muted">Comienza creando tu primer evento</p>
+                    {% if perms.login.crear_eventos %}
+                    <a href="{% url 'app_eventos:crear_evento' %}" class="btn btn-primary">
+                                <i class="fas fa-plus me-1"></i>Crear Primer Evento
+                            </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-2px);
+    }
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+    .btn-group .btn {
+        flex: 1;
+    }
+</style>
+{% endblock %}

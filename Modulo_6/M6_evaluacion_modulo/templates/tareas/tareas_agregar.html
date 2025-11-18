@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Nueva Tarea - Gestor de Tareas{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="mb-3">
+            <a href="{% url 'lista_tareas' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a Mis Tareas
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">
+                    <i class="bi bi-plus-circle"></i> Crear Nueva Tarea
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.titulo.id_for_label }}" class="form-label">
+                            <i class="bi bi-card-heading"></i> Título de la Tarea
+                        </label>
+                        {{ form.titulo }}
+                        {% if form.titulo.errors %}
+                            <div class="text-danger small mt-1">{{ form.titulo.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.descripcion.id_for_label }}" class="form-label">
+                            <i class="bi bi-card-text"></i> Descripción
+                        </label>
+                        {{ form.descripcion }}
+                        {% if form.descripcion.errors %}
+                            <div class="text-danger small mt-1">{{ form.descripcion.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-save"></i> Guardar Tarea
+                        </button>
+                        <a href="{% url 'lista_tareas' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="alert alert-info mt-3">
+            <i class="bi bi-lightbulb"></i> <strong>Consejo:</strong> Escribe títulos claros y descripciones detalladas para organizar mejor tus tareas.
+        </div>
+    </div>
+</div>
+{% endblock %}

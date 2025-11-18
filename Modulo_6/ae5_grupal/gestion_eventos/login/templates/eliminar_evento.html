@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Eliminar Evento{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-warning me-2"></i>
+                        <strong>¡Atención!</strong> Esta acción no se puede deshacer.
+                    </div>
+
+                    <h5 class="mb-3">¿Estás seguro de que deseas eliminar este evento?</h5>
+                    
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ evento.nombre }}</h6>
+                            <p class="card-text">
+                                <i class="fas fa-calendar me-2"></i>{{ evento.fecha|date:"d/m/Y" }}
+                                {% if evento.hora %}
+                                    - <i class="fas fa-clock me-1"></i>{{ evento.hora|time:"H:i" }}
+                                {% endif %}
+                            </p>
+                            <p class="card-text">
+                                <i class="fas fa-map-marker-alt me-2"></i>{{ evento.ubicacion }}
+                            </p>
+                            {% if evento.descripcion %}
+                            <p class="card-text text-muted small">{{ evento.descripcion|truncatewords:20 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <form method="POST" class="mt-4">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'app_eventos:detalle_evento' evento.id %}" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-1"></i>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-1"></i>Sí, Eliminar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Información adicional -->
+            <div class="mt-3 text-center text-muted">
+                <small>
+                    <i class="fas fa-info-circle me-1"></i>
+                    Al eliminar este evento, también se eliminarán todos los datos asociados.
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card {
+        border-radius: 10px;
+    }
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+    .border-danger {
+        border-color: #dc3545 !important;
+    }
+    .btn-danger:hover {
+        background-color: #bb2d3b;
+        border-color: #b02a37;
+    }
+</style>
+{% endblock %}

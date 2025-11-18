@@ -1,0 +1,96 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}Eliminar Tarea - TaskManager Pro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'task_list' %}">Mis Tareas</a></li>
+                <li class="breadcrumb-item active">Eliminar Tarea</li>
+            </ol>
+        </nav>
+
+        <!-- Card de confirmación -->
+        <div class="card shadow-lg border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-warning">
+                    <i class="bi bi-info-circle"></i> 
+                    Esta acción no se puede deshacer.
+                </div>
+
+                <h5 class="mb-3">¿Estás seguro que deseas eliminar esta tarea?</h5>
+                
+                <!-- Información de la tarea -->
+                <div class="card bg-light mb-4">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="bi bi-card-heading"></i> {{ task.title }}
+                        </h6>
+                        <p class="card-text text-muted mb-2">
+                            {{ task.description|truncatewords:30 }}
+                        </p>
+                        <div>
+                            {% if task.priority == 'high' %}
+                            <span class="badge bg-danger">
+                                <i class="bi bi-flag-fill"></i> {{ task.get_priority_display }}
+                            </span>
+                            {% elif task.priority == 'medium' %}
+                            <span class="badge bg-warning text-dark">
+                                <i class="bi bi-flag"></i> {{ task.get_priority_display }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-success">
+                                <i class="bi bi-flag"></i> {{ task.get_priority_display }}
+                            </span>
+                            {% endif %}
+
+                            {% if task.status == 'completed' %}
+                            <span class="badge bg-success">
+                                <i class="bi bi-check-circle"></i> {{ task.get_status_display }}
+                            </span>
+                            {% elif task.status == 'in_progress' %}
+                            <span class="badge bg-warning text-dark">
+                                <i class="bi bi-hourglass-split"></i> {{ task.get_status_display }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-secondary">
+                                <i class="bi bi-clock"></i> {{ task.get_status_display }}
+                            </span>
+                            {% endif %}
+
+                            {% if task.category %}
+                            <span class="badge bg-info">
+                                <i class="bi bi-tag"></i> {{ task.category.name }}
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de confirmación -->
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="bi bi-trash"></i> Sí, eliminar tarea
+                        </button>
+                        <a href="{% url 'task_detail' task.pk %}" class="btn btn-secondary btn-lg">
+                            <i class="bi bi-x-circle"></i> No, cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

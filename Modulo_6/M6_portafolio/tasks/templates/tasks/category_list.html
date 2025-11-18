@@ -1,0 +1,77 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}Categorías - TaskManager Pro{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bi bi-tags text-primary"></i> Categorías
+    </h2>
+    <a href="{% url 'category_create' %}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Nueva Categoría
+    </a>
+</div>
+
+{% if categories %}
+<div class="row">
+    {% for category in categories %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm fade-in">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-tag-fill text-info"></i> {{ category.name }}
+                    </h5>
+                    <span class="badge bg-primary">
+                        {{ category.task_set.count }} tarea{{ category.task_set.count|pluralize }}
+                    </span>
+                </div>
+                
+                {% if category.description %}
+                <p class="card-text text-muted">
+                    {{ category.description|truncatewords:20 }}
+                </p>
+                {% else %}
+                <p class="card-text text-muted fst-italic">
+                    Sin descripción
+                </p>
+                {% endif %}
+                
+                <div class="text-muted small mb-3">
+                    <i class="bi bi-clock-history"></i> 
+                    Creada: {{ category.created_at|date:"d/m/Y" }}
+                </div>
+
+                <div class="btn-group w-100">
+                    <a href="{% url 'task_list' %}?category={{ category.id }}" 
+                       class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-list"></i> Ver tareas
+                    </a>
+                    <a href="{% url 'category_delete' category.pk %}" 
+                       class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-5">
+    <div class="card shadow-sm">
+        <div class="card-body p-5">
+            <i class="bi bi-tags" style="font-size: 4rem; color: #ccc;"></i>
+            <h3 class="mt-3">No hay categorías</h3>
+            <p class="text-muted">
+                Crea categorías para organizar mejor tus tareas.
+            </p>
+            <a href="{% url 'category_create' %}" class="btn btn-success mt-3">
+                <i class="bi bi-plus-circle"></i> Crear mi primera categoría
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
