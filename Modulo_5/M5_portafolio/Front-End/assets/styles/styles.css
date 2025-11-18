@@ -1,0 +1,224 @@
+body {
+  background-color: #2b2c3ad7;
+  color: white;
+}
+
+/* Secciones */
+
+/* Navbar */
+
+#navbar {
+  color: white !important;
+  background-color: #282c35;
+  border-bottom: 1px solid #46495c;
+}
+
+@media (max-width: 991.98px) { /* aplica solo en mobile (lg para abajo) */
+  .fixed-menu.collapse.show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100vh;
+    z-index: 1050;
+    overflow-y: auto;
+    background-color: #000000;
+    padding-top: 60px;
+  }
+}
+
+/* Introducción */
+
+#introduccion {
+  color: white;
+  background-color: #26314988;
+  border-radius: 10px;
+  border: 1px solid #b2b3c06b;
+}
+
+#presentacion {
+  color: white;
+  background-color: #80818b5c;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+#foto-perfil {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto; 
+}
+
+/* Proyectos */
+
+
+#repositorio-general {
+  color: white;
+  background-color: #8f91a1d2;
+  padding: 15px;
+  border: 3px solid #9c9fb4d2;
+  border-radius: 10px;
+  /* Hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#repositorio-general:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-color: #b8bbd0;
+}
+
+.btn-repositorio {
+
+  background-color: #4521a7aa;
+  color: white;  
+  align-self: center;
+}
+
+.btn-repositorio:hover {
+  background-color: #4f29b89f;
+}
+
+
+#proyectos-individuales {
+  color: white;
+}
+
+.proyecto {
+  background-color: #8f91a1d2;
+  margin: 10px;
+  border-radius: 10px;
+  border: 2px solid #9c9fb4d2;
+  /* Hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.proyecto:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-color: #b8bbd0 !important;
+}
+
+/* Habilidades */
+
+/* Habilidades Técnicas */
+#habilidades-tecnicas {
+  background-color: #26314988;
+  border-radius: 10px;
+  border: 1px solid #aeb2d459;
+}
+
+.ht {
+  color: white;
+  background-color: #8f91a1d2;
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid #9c9fb4d2;
+  /* Hover transition */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ht:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: #b8bbd0;
+}
+
+
+/* Barras de progreso */
+
+.skill-progress {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    height: 6px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.skill-progress-bar {
+    height: 100%;
+    background-color: #64b5f6;
+    border-radius: 4px;
+    width: 0%;
+    transition: width 1.5s ease-out;
+}
+
+/* Variante con diferentes colores según nivel */
+
+.skill-progress-bar.advanced {
+    background-color: #4CAF50; /* Verde para avanzado (80%+) */
+}
+
+.skill-progress-bar.intermediate {
+    background-color: #2196F3; /* Azul para intermedio (60-79%) */
+}
+
+.skill-progress-bar.basic {
+    background-color: #FF9800; /* Naranja para básico (40-59%) */
+}
+
+.skill-progress-bar.beginner {
+    background-color: #F44336; /* Rojo para principiante (<40%) */
+}
+
+.ht small {
+    color: #ffffff;
+    font-size: 0.85em;
+    font-weight: 300;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+/* Habilidades Personales */
+
+#habilidades-personales {
+  background-color: #8f91a1d2;
+  border-radius: 10px;
+  border: 1px solid #9c9fb43d;
+}
+
+.hp {
+  color: white;
+  background-color: #26314988;
+  border-radius: 8px;
+  border: 2px solid #9c9fb42a;
+  padding: 15px; 
+  margin: 8px 0; 
+  margin: 10px 8px;
+  /* Hover transition */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.hp:hover {
+  transform: scale(1.03);
+  background-color: #35446493;
+  border-color: #9c9fb450;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#habilidades-personales .row {
+  margin-bottom: 10px;
+}
+
+.hp i {
+  color: #b8bbd0;
+}
+
+/* Contacto */
+
+#contacto {
+  background-color: #92b5ff88;
+  border: 2px solid #9ea3be85;
+}
+
+#enviar-contacto {
+  background-color: #4521a794;
+  color: rgb(255, 255, 255);
+  
+}
+
